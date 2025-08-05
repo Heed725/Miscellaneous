@@ -1,0 +1,9 @@
+[out:json][timeout:25];
+// Fetch relevant highways in Iringa Urban area
+(
+  way["highway"~"trunk|primary|secondary|tertiary|unclassified|residential|service"]
+    ( -7.85, 35.62, -7.70, 35.78 );
+);
+out body;
+>;
+out skel qt;
