@@ -30,10 +30,10 @@ class ReclassifyLandcoverPriority(QgsProcessingAlgorithm):
         return "Reclassify Landcover Priority (1–5)"
 
     def group(self) -> str:
-        return "Landcover Reclassification"
+        return "Multi-Criteria Analysis"
 
     def groupId(self) -> str:
-        return "landcover"
+        return "mca"
 
     def shortHelpString(self) -> str:
         return (
