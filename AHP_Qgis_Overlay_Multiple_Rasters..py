@@ -2,12 +2,13 @@ from typing import Any, Optional
 from qgis.core import (
     QgsProcessing,
     QgsProcessingAlgorithm,
-    QgsProcessingParameterMultipleLayers,
-    QgsProcessingParameterString,
-    QgsProcessingParameterRasterDestination,
     QgsProcessingContext,
     QgsProcessingFeedback,
     QgsProcessingException,
+    QgsProcessingParameterMultipleLayers,
+    QgsProcessingParameterString,
+    QgsProcessingParameterRasterDestination,
+    QgsRasterLayer,
 )
 import processing
 
@@ -25,7 +26,7 @@ class AHPRasterOverlayMultipleAlgorithm(QgsProcessingAlgorithm):
         return "ahp_raster_overlay_multiple"
 
     def displayName(self) -> str:
-        return "AHP Raster Overlay (Multiple Rasters)"
+        return "AHP Raster Overlay"
 
     def group(self) -> str:
         return "Multi-Criteria Analysis"
@@ -35,16 +36,16 @@ class AHPRasterOverlayMultipleAlgorithm(QgsProcessingAlgorithm):
 
     def shortHelpString(self) -> str:
         return (
-            "Combine multiple reclassified raster layers using AHP weights "
+            "Combines multiple reclassified raster layers using AHP weights "
             "to produce a weighted overlay raster."
         )
 
     def initAlgorithm(self, config: Optional[dict[str, Any]] = None):
-        # Removed unsupported keywords for QGIS 3.4 compatibility
         self.addParameter(
             QgsProcessingParameterMultipleLayers(
                 self.INPUT_RASTERS,
-                "Input Raster Layers (minimum 2)"
+                "Input Raster Layers (minimum 2)",
+                layerType=QgsProcessing.TypeRaster
             )
         )
         self.addParameter(
@@ -57,7 +58,7 @@ class AHPRasterOverlayMultipleAlgorithm(QgsProcessingAlgorithm):
         self.addParameter(
             QgsProcessingParameterRasterDestination(
                 self.OUTPUT,
-                "Weighted Overlay Output"
+                "Weighted Overlay Output (.tif)"
             )
         )
 
@@ -65,7 +66,7 @@ class AHPRasterOverlayMultipleAlgorithm(QgsProcessingAlgorithm):
         self,
         parameters: dict[str, Any],
         context: QgsProcessingContext,
-        feedback: QgsProcessingFeedback,
+        feedback: QgsProcessingFeedback
     ) -> dict[str, Any]:
 
         raster_layers = self.parameterAsLayerList(parameters, self.INPUT_RASTERS, context)
@@ -74,7 +75,6 @@ class AHPRasterOverlayMultipleAlgorithm(QgsProcessingAlgorithm):
         if len(raster_layers) < 2:
             raise QgsProcessingException("Please provide at least two raster layers.")
 
-        # Parse weights string into floats
         try:
             weights = [float(w.strip()) for w in weights_str.split(",")]
         except Exception:
@@ -83,18 +83,15 @@ class AHPRasterOverlayMultipleAlgorithm(QgsProcessingAlgorithm):
         if len(weights) != len(raster_layers):
             raise QgsProcessingException("Number of weights must match number of raster layers.")
 
-        # Normalize weights
         total_weight = sum(weights)
         if total_weight == 0:
             raise QgsProcessingException("Sum of weights must be greater than zero.")
 
         weights = [w / total_weight for w in weights]
-
         feedback.pushInfo(f"Normalized weights: {weights}")
 
         output_path = self.parameterAsOutputLayer(parameters, self.OUTPUT, context)
 
-        # Build expression and inputs dict for gdal:rastercalculator
         variables = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         if len(raster_layers) > len(variables):
             raise QgsProcessingException(f"Too many input rasters! Max supported: {len(variables)}")
@@ -113,16 +110,28 @@ class AHPRasterOverlayMultipleAlgorithm(QgsProcessingAlgorithm):
             key_in = f"INPUT_{var}"
             key_band = f"BAND_{var}"
 
-            params[key_in] = layer.dataProvider().dataSourceUri()
+            if isinstance(layer, QgsRasterLayer):
+                raster_path = layer.source()
+            else:
+                raise QgsProcessingException(f"Invalid raster layer at index {i}.")
+
+            params[key_in] = raster_path
             params[key_band] = 1
             expression_terms.append(f"{weight}*{var}")
 
         expression = " + ".join(expression_terms)
         params['FORMULA'] = expression
 
-        feedback.pushInfo(f"Running raster calculator with expression: {expression}")
+        feedback.pushInfo(f"Raster calculator expression: {expression}")
 
-        result = processing.run("gdal:rastercalculator", params, context=context, feedback=feedback)
+        result = processing.run(
+            "gdal:rastercalculator",
+            params,
+            context=context,
+            feedback=feedback
+        )
+
+        feedback.pushInfo(f"Weighted overlay raster saved to: {result['OUTPUT']}")
 
         return {self.OUTPUT: result['OUTPUT']}
 
