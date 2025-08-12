@@ -1,0 +1,90 @@
+import rasterio
+import numpy as np
+from skimage.feature import canny
+from skimage.transform import hough_line, hough_line_peaks
+import matplotlib.pyplot as plt
+import geopandas as gpd
+from shapely.geometry import LineString
+
+# Load the DEM file (replace 'your_dem.tif' with your actual DEM file path)
+with rasterio.open('your_dem.tif') as src:
+    dem = src.read(1)  # Read the elevation band
+    transform = src.transform  # Affine transform for georeferencing
+    crs = src.crs  # Coordinate Reference System
+    height, width = dem.shape  # Image dimensions (rows, cols)
+
+# Apply Canny edge detection (adjust sigma as needed for sensitivity)
+edges = canny(dem, sigma=2.0)
+
+# Perform Hough Line Transform
+h, theta, d = hough_line(edges)
+
+# Extract peaks (lines) from the Hough space
+accum, angles, dists = hough_line_peaks(h, theta, d)
+
+# List to hold the line geometries
+lines = []
+
+# Process each detected line (angle in radians, dist is rho)
+for acc, angle, dist in zip(accum, angles, dists):
+    # Optionally filter by accumulator value (votes) for stronger lines
+    if acc < 50:  # Adjust threshold based on your data (e.g., skip weak detections)
+        continue
+
+    intersection_points = []
+    cos_t = np.cos(angle)
+    sin_t = np.sin(angle)
+    epsilon = 1e-6  # Small value to avoid division by zero
+
+    # Intersection with left boundary (x=0)
+    if abs(sin_t) > epsilon:
+        y = dist / sin_t
+        if 0 <= y <= height - 1:
+            intersection_points.append((0, y))
+
+    # Intersection with right boundary (x=width-1)
+    if abs(sin_t) > epsilon:
+        y = (dist - (width - 1) * cos_t) / sin_t
+        if 0 <= y <= height - 1:
+            intersection_points.append((width - 1, y))
+
+    # Intersection with top boundary (y=0)
+    if abs(cos_t) > epsilon:
+        x = dist / cos_t
+        if 0 <= x <= width - 1:
+            intersection_points.append((x, 0))
+
+    # Intersection with bottom boundary (y=height-1)
+    if abs(cos_t) > epsilon:
+        x = (dist - (height - 1) * sin_t) / cos_t
+        if 0 <= x <= width - 1:
+            intersection_points.append((x, height - 1))
+
+    # We expect exactly two intersection points for lines crossing the image
+    if len(intersection_points) == 2:
+        (col1, row1), (col2, row2) = intersection_points
+
+        # Convert pixel coordinates to geographic coordinates
+        geo_x1, geo_y1 = src.xy(row1, col1)  # src.xy(row, col) -> (geo_x, geo_y)
+        geo_x2, geo_y2 = src.xy(row2, col2)
+
+        # Create a LineString geometry
+        line_geom = LineString([(geo_x1, geo_y1), (geo_x2, geo_y2)])
+        lines.append({'geometry': line_geom, 'votes': acc})  # Optional: store votes as attribute
+
+# Create a GeoDataFrame from the lines
+if lines:
+    gdf = gpd.GeoDataFrame(lines, crs=crs)
+    # Save to shapefile (replace 'lineaments.shp' with desired output path)
+    gdf.to_file('lineaments.shp')
+    print(f"Exported {len(gdf)} lineaments to 'lineaments.shp'")
+else:
+    print("No valid lineaments detected.")
+
+# Optional: Plot for visualization
+fig, ax = plt.subplots(1, 2, figsize=(12, 6))
+ax[0].imshow(dem, cmap='terrain')
+ax[0].set_title('Original DEM')
+ax[1].imshow(edges, cmap='gray')
+ax[1].set_title('Detected Edges')
+plt.show()
