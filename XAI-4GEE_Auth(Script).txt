@@ -1,0 +1,43 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import random
+import os, json
+
+import ipyleaflet
+import ipywidgets as widgets
+from IPython.display import display
+
+import ee
+import geemap
+from pprint import pprint
+from google.colab import files
+
+# Ensure numbers display nicely in Pandas
+pd.options.display.float_format = '{:,.2f}'.format
+
+# Your Earth Engine project ID
+PROJECT_ID = "ee-hemedlungo"
+
+# Authenticate and initialize Earth Engine
+try:
+    ee.Initialize(project=PROJECT_ID)
+except Exception as e:
+    ee.Authenticate()
+    ee.Initialize(project=PROJECT_ID)
+
+# Check if credentials are in Google Drive, copy to Colab if needed
+credentials_in_drive = 0
+if geemap.credentials_in_drive():
+    geemap.copy_credentials_to_colab()
+    credentials_in_drive = 1
+
+# Create map instance
+Map = geemap.Map()
+
+# If credentials are only in Colab, copy to Drive
+if geemap.credentials_in_colab():
+    geemap.copy_credentials_to_drive()
+
+# Display the interactive map
+Map
