@@ -1,295 +1,332 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GeoJSON Country Exporter</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
     <style>
+      #map {
+        height: 70vh;
+        z-index: 0;
+      }
+      .country-highlight {
+        fill: #3b82f6;
+        fill-opacity: 0.7;
+        stroke: #1d4ed8;
+        stroke-width: 2;
+      }
+      .export-btn {
+        transition: all 0.3s ease;
+      }
+      .export-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+          0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      }
+      @media (max-width: 640px) {
         #map {
-            height: 70vh;
-            z-index: 0;
+          height: 60vh;
         }
-        .country-highlight {
-            fill: #3b82f6;
-            fill-opacity: 0.7;
-            stroke: #1d4ed8;
-            stroke-width: 2;
-        }
-        .export-btn {
-            transition: all 0.3s ease;
-        }
-        .export-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-        }
-        @media (max-width: 640px) {
-            #map {
-                height: 60vh;
-            }
-        }
+      }
     </style>
-</head>
-<body class="bg-gray-50">
+  </head>
+  <body class="bg-gray-50">
     <div class="container mx-auto px-4 py-8">
-        <header class="mb-8 text-center">
-            <h1 class="text-3xl md:text-4xl font-bold text-blue-800 mb-2">GeoJSON Country Exporter</h1>
-            <p class="text-gray-600 max-w-2xl mx-auto">Click on any country to select it, then export as GeoJSON format</p>
-        </header>
+      <header class="mb-8 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold text-blue-800 mb-2">
+          GeoJSON Country Exporter
+        </h1>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Click on any country to select it, then export as GeoJSON format
+        </p>
+      </header>
 
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
-            <div id="map"></div>
-        </div>
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+        <div id="map"></div>
+      </div>
 
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                <div class="w-full md:w-auto">
-                    <h2 class="text-xl font-semibold text-gray-800 mb-2">Selected Countries</h2>
-                    <p id="selected-count" class="text-gray-600">0 countries selected</p>
-                </div>
-                <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                    <button id="clear-btn" class="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg font-medium hover:bg-gray-300 transition-colors w-full md:w-auto">
-                        Clear Selection
-                    </button>
-                    <button id="export-btn" class="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors export-btn w-full md:w-auto">
-                        Export as GeoJSON
-                    </button>
-                </div>
-            </div>
+      <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+        <div
+          class="flex flex-col md:flex-row justify-between items-center gap-4"
+        >
+          <div class="w-full md:w-auto">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">
+              Selected Countries
+            </h2>
+            <p id="selected-count" class="text-gray-600">
+              0 countries selected
+            </p>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+            <button
+              id="clear-btn"
+              class="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg font-medium hover:bg-gray-300 transition-colors w-full md:w-auto"
+            >
+              Clear Selection
+            </button>
+            <button
+              id="export-btn"
+              class="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors export-btn w-full md:w-auto"
+            >
+              Export as GeoJSON
+            </button>
+          </div>
         </div>
+      </div>
 
-        <div id="geojson-display" class="bg-gray-100 rounded-xl p-6 hidden">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-lg font-medium text-gray-800">GeoJSON Output</h3>
-                <div class="flex gap-2">
-                    <button id="copy-btn" class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md text-sm hover:bg-gray-400 transition-colors">
-                        Copy to Clipboard
-                    </button>
-                    <button id="download-btn" class="px-4 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700 transition-colors">
-                        Download
-                    </button>
-                </div>
-            </div>
-            <pre id="geojson-output" class="bg-white p-4 rounded-md overflow-x-auto text-sm text-gray-800"></pre>
+      <div id="geojson-display" class="bg-gray-100 rounded-xl p-6 hidden">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-medium text-gray-800">GeoJSON Output</h3>
+          <div class="flex gap-2">
+            <button
+              id="copy-btn"
+              class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md text-sm hover:bg-gray-400 transition-colors"
+            >
+              Copy to Clipboard
+            </button>
+            <button
+              id="download-btn"
+              class="px-4 py-2 bg-blue-600 text-white rounded-md text-sm hover:bg-blue-700 transition-colors"
+            >
+              Download
+            </button>
+          </div>
         </div>
+        <pre
+          id="geojson-output"
+          class="bg-white p-4 rounded-md overflow-x-auto text-sm text-gray-800"
+        ></pre>
+      </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize the map
-            const map = L.map('map').setView([20, 0], 2);
-            
-            // Add base tile layer
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize the map
+        const map = L.map("map").setView([20, 0], 2);
+
+        // Add base tile layer
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution:
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        }).addTo(map);
+
+        // Store selected countries with their full feature data
+        let selectedCountries = {};
+        let countryLayers = {};
+
+        // Load country boundaries (using detailed Natural Earth 50m data)
+        fetch(
+          "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_0_countries.geojson"
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            // Create a GeoJSON layer for all countries
+            const countriesLayer = L.geoJSON(data, {
+              style: function (feature) {
+                return {
+                  fillColor: "#f8fafc",
+                  weight: 1,
+                  opacity: 1,
+                  color: "#64748b",
+                  fillOpacity: 0.9,
+                };
+              },
+              onEachFeature: function (feature, layer) {
+                // Store reference to each country layer
+                countryLayers[feature.properties.name] = layer;
+
+                // Add click event to select/deselect countries
+                layer.on("click", function (e) {
+                  toggleCountrySelection(feature);
+                });
+
+                // Add hover effects
+                layer.on("mouseover", function () {
+                  if (!selectedCountries[feature.properties.name]) {
+                    layer.setStyle({
+                      fillColor: "#bfdbfe",
+                      color: "#3b82f6",
+                      weight: 1.5,
+                      fillOpacity: 0.9,
+                    });
+                  }
+                });
+
+                layer.on("mouseout", function () {
+                  if (!selectedCountries[feature.properties.name]) {
+                    layer.setStyle({
+                      fillColor: "#f8fafc",
+                      color: "#64748b",
+                      weight: 1,
+                      fillOpacity: 0.9,
+                    });
+                  }
+                });
+              },
             }).addTo(map);
 
-            // Store selected countries
-            let selectedCountries = [];
-            let countryLayers = {};
-            
-            // Load country boundaries (using detailed Natural Earth 50m data)
-            fetch('https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_0_countries.geojson')
-                .then(response => response.json())
-                .then(data => {
-                    // Create a GeoJSON layer for all countries
-                    const countriesLayer = L.geoJSON(data, {
-                        style: function(feature) {
-                            return {
-                                fillColor: '#f8fafc',
-                                weight: 1,
-                                opacity: 1,
-                                color: '#64748b',
-                                fillOpacity: 0.9
-                            };
-                        },
-                        onEachFeature: function(feature, layer) {
-                            // Store reference to each country layer
-                            countryLayers[feature.properties.name] = layer;
-                            
-                            // Add click event to select/deselect countries
-                            layer.on('click', function(e) {
-                                toggleCountrySelection(feature);
-                            });
-                            
-                            // Add hover effects
-                            layer.on('mouseover', function() {
-                                if (!selectedCountries.includes(feature.properties.name)) {
-                                    layer.setStyle({
-                                        fillColor: '#bfdbfe',
-                                        color: '#3b82f6',
-                                        weight: 1.5,
-                                        fillOpacity: 0.9
-                                    });
-                                }
-                            });
-                            
-                            layer.on('mouseout', function() {
-                                if (!selectedCountries.includes(feature.properties.name)) {
-                                    layer.setStyle({
-                                        fillColor: '#f8fafc',
-                                        color: '#64748b',
-                                        weight: 1,
-                                        fillOpacity: 0.9
-                                    });
-                                }
-                            });
-                        }
-                    }).addTo(map);
-                    
-                    // Fit map to show all countries
-                    map.fitBounds(countriesLayer.getBounds());
-                })
-                .catch(error => {
-                    console.error('Error loading countries data:', error);
-                    document.getElementById('map').innerHTML = `
+            // Fit map to show all countries
+            map.fitBounds(countriesLayer.getBounds());
+          })
+          .catch((error) => {
+            console.error("Error loading countries data:", error);
+            document.getElementById("map").innerHTML = `
                         <div class="flex items-center justify-center h-full bg-red-50 text-red-600 p-4">
                             <p>Failed to load map data. Please check your internet connection.</p>
                         </div>
                     `;
-                });
+          });
 
-            // Toggle country selection
-            function toggleCountrySelection(feature) {
-                const countryName = feature.properties.name;
-                const index = selectedCountries.indexOf(countryName);
-                
-                if (index === -1) {
-                    // Add to selection
-                    selectedCountries.push(countryName);
-                    countryLayers[countryName].setStyle({
-                        fillColor: '#3b82f6',
-                        color: '#1d4ed8',
-                        weight: 2,
-                        fillOpacity: 0.7
-                    });
-                    countryLayers[countryName].bringToFront();
-                } else {
-                    // Remove from selection
-                    selectedCountries.splice(index, 1);
-                    countryLayers[countryName].setStyle({
-                        fillColor: '#f8fafc',
-                        color: '#64748b',
-                        weight: 1,
-                        fillOpacity: 0.9
-                    });
-                }
-                
-                updateSelectionCount();
-            }
+        // Toggle country selection
+        function toggleCountrySelection(feature) {
+          const countryName = feature.properties.name;
+          
+          if (!selectedCountries[countryName]) {
+            // Add to selection with full feature data
+            selectedCountries[countryName] = feature;
+            countryLayers[countryName].setStyle({
+              fillColor: "#3b82f6",
+              color: "#1d4ed8",
+              weight: 2,
+              fillOpacity: 0.7,
+            });
+            countryLayers[countryName].bringToFront();
+          } else {
+            // Remove from selection
+            delete selectedCountries[countryName];
+            countryLayers[countryName].setStyle({
+              fillColor: "#f8fafc",
+              color: "#64748b",
+              weight: 1,
+              fillOpacity: 0.9,
+            });
+          }
 
-            // Update the selected countries count display
-            function updateSelectionCount() {
-                const count = selectedCountries.length;
-                const countElement = document.getElementById('selected-count');
-                countElement.textContent = `${count} ${count === 1 ? 'country' : 'countries'} selected`;
-                
-                if (count > 0) {
-                    countElement.classList.add('text-blue-600');
-                    countElement.classList.remove('text-gray-600');
-                } else {
-                    countElement.classList.add('text-gray-600');
-                    countElement.classList.remove('text-blue-600');
-                }
-            }
+          updateSelectionCount();
+        }
 
-            // Clear selection
-            document.getElementById('clear-btn').addEventListener('click', function() {
-                selectedCountries.forEach(countryName => {
-                    countryLayers[countryName].setStyle({
-                        fillColor: '#f3f4f6',
-                        color: '#9ca3af',
-                        weight: 1
-                    });
-                });
-                
-                selectedCountries = [];
-                updateSelectionCount();
-                document.getElementById('geojson-display').classList.add('hidden');
+        // Update the selected countries count display
+        function updateSelectionCount() {
+          const count = Object.keys(selectedCountries).length;
+          const countElement = document.getElementById("selected-count");
+          countElement.textContent = `${count} ${
+            count === 1 ? "country" : "countries"
+          } selected`;
+
+          if (count > 0) {
+            countElement.classList.add("text-blue-600");
+            countElement.classList.remove("text-gray-600");
+          } else {
+            countElement.classList.add("text-gray-600");
+            countElement.classList.remove("text-blue-600");
+          }
+        }
+
+        // Clear selection
+        document
+          .getElementById("clear-btn")
+          .addEventListener("click", function () {
+            Object.keys(selectedCountries).forEach((countryName) => {
+              countryLayers[countryName].setStyle({
+                fillColor: "#f3f4f6",
+                color: "#9ca3af",
+                weight: 1,
+              });
             });
 
-            // Export as GeoJSON
-            document.getElementById('export-btn').addEventListener('click', function() {
-                if (selectedCountries.length === 0) {
-                    alert('Please select at least one country to export.');
-                    return;
-                }
-                
-                fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
-                    .then(response => response.json())
-                    .then(data => {
-                        // Filter features to only include selected countries
-                        const filteredFeatures = data.features.filter(feature => 
-                            selectedCountries.includes(feature.properties.name)
-                        );
-                        
-                        // Create new GeoJSON object
-                        const geoJSON = {
-                            type: "FeatureCollection",
-                            features: filteredFeatures
-                        };
-                        
-                        // Display the GeoJSON
-                        const outputElement = document.getElementById('geojson-output');
-                        outputElement.textContent = JSON.stringify(geoJSON, null, 2);
-                        document.getElementById('geojson-display').classList.remove('hidden');
-                        
-                        // Scroll to the output
-                        document.getElementById('geojson-display').scrollIntoView({
-                            behavior: 'smooth'
-                        });
+            selectedCountries = {};
+            updateSelectionCount();
+            document.getElementById("geojson-display").classList.add("hidden");
+          });
 
-                        // Enable download button
-                        document.getElementById('download-btn').addEventListener('click', function() {
-                            downloadGeoJSON(geoJSON);
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error exporting GeoJSON:', error);
-                        alert('Failed to export GeoJSON. Please try again.');
-                    });
-            });
-
-            // Function to download GeoJSON
-            function downloadGeoJSON(geoJSON) {
-                
-                const blob = new Blob([JSON.stringify(geoJSON, null, 2)], { type: 'application/json' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'countries.geojson';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
+        // Export as GeoJSON
+        document
+          .getElementById("export-btn")
+          .addEventListener("click", function () {
+            if (Object.keys(selectedCountries).length === 0) {
+              alert("Please select at least one country to export.");
+              return;
             }
 
-            // Copy to clipboard
-            document.getElementById('copy-btn').addEventListener('click', function() {
-                const outputElement = document.getElementById('geojson-output');
-                const text = outputElement.textContent;
-                
-                navigator.clipboard.writeText(text)
-                    .then(() => {
-                        const btn = document.getElementById('copy-btn');
-                        btn.textContent = 'Copied!';
-                        btn.classList.remove('bg-gray-300');
-                        btn.classList.add('bg-green-500', 'text-white');
-                        
-                        setTimeout(() => {
-                            btn.textContent = 'Copy to Clipboard';
-                            btn.classList.remove('bg-green-500', 'text-white');
-                            btn.classList.add('bg-gray-300');
-                        }, 2000);
-                    })
-                    .catch(err => {
-                        console.error('Failed to copy text: ', err);
-                        alert('Failed to copy to clipboard. Please try again.');
-                    });
+            // Create GeoJSON from our stored features
+            const geoJSON = {
+              type: "FeatureCollection",
+              features: Object.values(selectedCountries),
+            };
+
+            // Display the GeoJSON
+            const outputElement = document.getElementById("geojson-output");
+            outputElement.textContent = JSON.stringify(geoJSON, null, 2);
+            document
+              .getElementById("geojson-display")
+              .classList.remove("hidden");
+
+            // Scroll to the output
+            document.getElementById("geojson-display").scrollIntoView({
+              behavior: "smooth",
             });
-        });
+
+            // Enable download button
+            document
+              .getElementById("download-btn")
+              .addEventListener("click", function () {
+                downloadGeoJSON(geoJSON);
+              });
+          });
+
+        // Function to download GeoJSON
+        function downloadGeoJSON(geoJSON) {
+          const blob = new Blob([JSON.stringify(geoJSON, null, 2)], {
+            type: "application/json",
+          });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          // Use first country name or "selected_countries" as filename
+          const countryNames = Object.keys(selectedCountries);
+          const filename = countryNames.length === 1 
+            ? `${countryNames[0].replace(/\s+/g, '_')}.geojson`
+            : "selected_countries.geojson";
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }
+
+        // Copy to clipboard
+        document
+          .getElementById("copy-btn")
+          .addEventListener("click", function () {
+            const outputElement = document.getElementById("geojson-output");
+            const text = outputElement.textContent;
+
+            navigator.clipboard
+              .writeText(text)
+              .then(() => {
+                const btn = document.getElementById("copy-btn");
+                btn.textContent = "Copied!";
+                btn.classList.remove("bg-gray-300");
+                btn.classList.add("bg-green-500", "text-white");
+
+                setTimeout(() => {
+                  btn.textContent = "Copy to Clipboard";
+                  btn.classList.remove("bg-green-500", "text-white");
+                  btn.classList.add("bg-gray-300");
+                }, 2000);
+              })
+              .catch((err) => {
+                console.error("Failed to copy text: ", err);
+                alert("Failed to copy to clipboard. Please try again.");
+              });
+          });
+      });
     </script>
-</body>
+  </body>
 </html>
