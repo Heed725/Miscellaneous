@@ -1,0 +1,614 @@
+def createTabs():
+  """
+  Train/predict sklearn classifer
+  Show Classifier metrics
+  Show feature importance/shap values plot
+  Claculate and show zonal areas
+    classifier: gee smilerf classifer
+    forest: sklearn rf classifier
+  """
+
+  global forest, shap_values, X_test, y_test
+
+  if not w_classified_flag.value:
+    print('Classify the image first.')
+    return
+  if w_classifier_select.value != 'RandomForest':
+    print('Select RandomForest to display feature importance.')
+    return
+
+  # GEE classify test data, to calculate some classifier metrics
+  test_classified = testing.classify(classifier)
+
+  gee_result = geemap.ee_to_df(test_classified.select([LABEL, 'classification']))
+
+  gee_ytest = gee_result[LABEL]
+  gee_ypred = gee_result['classification']
+
+  #classifierMetrics(gee_ytest, gee_ypred)
+
+  # sklearn classifier
+  print('Run scikit-learn classifier ...')
+  forest, X_test, y_test = sklearnClassifier(training, testing)
+
+  y_pred = forest.predict(X_test)
+
+  print('Calculate feature importance ...')
+  # GEE feature importance
+  rf_explain = classifier.explain().getInfo()
+  gee_importance = pd.Series(rf_explain['importance']).sort_values(ascending=True)
+
+  # sklearn feature importance based on mean decrease in impurity, MDI
+  mdi_std = np.std([tree.feature_importances_ for tree in forest.estimators_],
+               axis=0)
+
+  mdi_importances = pd.Series(
+      forest.feature_importances_, index=feature_names
+  ).sort_values(ascending=True)
+
+  # sklearn feature importance based on feature permutation
+  permu_test_result = permutation_importance(
+            forest, X_test, y_test, n_repeats=5,
+            random_state=seed, n_jobs=5
+  )
+  permu_test_importances = pd.Series(
+      permu_test_result.importances_mean, index=feature_names
+  ).sort_values(ascending=True)
+
+  permu_train_result = permutation_importance(
+            forest, X_train, y_train, n_repeats=5,
+            random_state=seed, n_jobs=5
+  )
+  permu_train_importances = pd.Series(
+      permu_train_result.importances_mean, index=feature_names
+  ).sort_values(ascending=True)
+
+  # save permu importance to dataframe
+  sorted_test_idx = permu_test_result.importances_mean.argsort()
+  permu_test_df = pd.DataFrame(
+      permu_test_result.importances[sorted_test_idx].T,
+      columns=[feature_names[i] for i in sorted_test_idx],
+  )
+
+  sorted_train_idx = permu_train_result.importances_mean.argsort()
+  permu_train_df = pd.DataFrame(
+      permu_train_result.importances[sorted_train_idx].T,
+      columns=[feature_names[i] for i in sorted_train_idx],
+  )
+
+  # shap values
+  print('Calculate SHAP values ...')
+  explainer = shap.TreeExplainer(forest)
+  shap_values = explainer.shap_values(X_test) #shape(#classes, #samples, #features)
+
+  shap_obj = explainer(X_test)
+  #print(shap_obj.shape) # (#samples, #features, #classes)
+
+  #zonal areas calculation moved to specific tab, calculate only when requested
+  if temporal_interval == 'all-time':
+    ctab = cwidgets.TabBar([
+        'Labels histogram',
+        'Parallel coordinate plot',
+        'Classifier assessment',
+        'Feature importance',
+        'SHAP values',
+        'Zonal statistics'
+    ])
+  else:
+      ctab = cwidgets.TabBar([
+      'Labels histogram',
+      'Parallel coordinate plot',
+      'Classifier assessment',
+      'Feature importance',
+      'SHAP values',
+      'Zonal statistics',
+      'Spatio-temporal dynamics'
+  ])
+
+  color_barplot = 'blue'
+
+  # define widgets for interactive bar plots
+  # ? move to a separate section
+  # barplot widgets
+  w_barWidth = widgets.FloatSlider(
+        description='Bar width', value=0.5,
+        min=0.05, max=1, step=0.05,
+        continuous_update=False,
+        style=desc_width
+  )
+
+  w_rotation = widgets.IntSlider(
+      value=45,
+      min=0,
+      max=90,
+      step=1,
+      description='Label rotation',
+      continuous_update=False,
+      style=desc_width
+  )
+
+  cm_normalize_options = [
+      ('normalized over the true conditions', 'true'),
+      ('normalized over the predicted conditions', 'pred'),
+      ('normalized by the total number of samples', 'all'),
+      ('not normalized', '-')
+  ]
+
+  # confusion matrix widget
+  w_cm_normalize = widgets.Dropdown(
+      options=cm_normalize_options,
+      value='-',
+      description='Confusion matrix',
+      layout={'width': 'max-content'},
+      style=desc_width
+  )
+
+  # shap plot widgets
+  w_shap_class = widgets.Dropdown(
+      options=CLASS_NAMES,
+      value=CLASS_NAMES[0],
+      description='Select class name',
+      layout={'width': 'max-content'},
+      style=desc_width
+  )
+
+  w_shap_feature0 = widgets.Dropdown(
+      options=feature_names,
+      value=feature_names[0],
+      description='Main feature',
+      layout={'width': 'max-content'},
+      style=desc_width
+  )
+  w_shap_feature1 = widgets.Dropdown(
+      options=feature_names,
+      value=feature_names[1],
+      description='Interaction feature',
+      layout={'width': 'max-content'},
+      style=desc_width
+  )
+
+  # spatio-temporal widget
+  w_zonal_selectClasses = widgets.SelectMultiple(
+      options=CLASS_NAMES,
+      value=CLASS_NAMES[:3],
+      description='Select classes',
+      rows=6,
+      disabled=False,
+      style=desc_width
+  )
+
+  w_zonal_chartType = widgets.Dropdown(
+      options=['line', 'bar'],
+      value='line',
+      description='Chart type',
+      layout={'width': 'max-content'},
+      style=desc_width
+  )
+
+  w_zonal_subplot = widgets.Checkbox(
+      description='Subplot',
+      value=False,
+      style=desc_width
+  )
+
+  # samples distribution
+  with ctab.output_to(0):
+    label_hist = LABEL_DATA.aggregate_histogram(LABEL).getInfo()
+
+    _ = interact(plotLabelsHist,
+             width=w_barWidth,
+             rot=w_rotation,
+             label_hist=fixed(label_hist)
+            )
+
+    # display labels numbers
+    train_hist = training.aggregate_histogram(LABEL).getInfo()
+    test_hist = testing.aggregate_histogram(LABEL).getInfo()
+
+    for c in label_hist.keys():
+      if c not in train_hist.keys():
+        train_hist[c] = 0
+      if c not in test_hist.keys():
+        test_hist[c] = 0
+
+    d = {
+      'All labels': label_hist.values(),
+      'Train labels': train_hist.values(),
+      'Test labels': test_hist.values()
+    }
+
+    class_index = [CLASS_NAMES[int(i)] for i in label_hist.keys()]
+
+    df = pd.DataFrame(d, index=class_index)
+    df.loc["Sum of classes"] = df.sum()
+    #df.loc[:, "Total"] = df.sum(axis=1)
+    print('\n', df)
+
+  # Parallel coordinate plot
+  with ctab.output_to(1):
+    print('\nParallel coordinate plot for test data')
+    #train_data = geemap.ee_to_df(training)
+    test_data = geemap.ee_to_df(testing)
+
+    nClasses = len(CLASS_NAMES)
+
+    color_scale = []
+    for i in range(nClasses):
+      # f'{float(i)/nClasses:.2f}'
+      color_scale.append((float(i)/nClasses, CLASS_PALETTE[i]))
+      color_scale.append((float(i+1)/nClasses, CLASS_PALETTE[i]))
+
+    fig = px.parallel_coordinates(
+        test_data,
+        color=LABEL,
+        dimensions=feature_names+[LABEL],
+        color_continuous_scale=color_scale
+    )
+
+    fig.update_layout(coloraxis_colorbar=dict(
+        title=LABEL,
+        tickvals=list(range(nClasses)),
+        ticktext=CLASS_NAMES,
+        #lenmode="pixels", len=150,
+    ))
+
+    fig.show()
+
+  # Classifier assessment
+  with ctab.output_to(2):
+    grid = cwidgets.Grid(1, 2)
+    with grid.output_to(0, 0):
+      #gee classifier metrics
+      display(widgets.HTML("<h3 style='text-align: center'>GEE metrics</h3>"))
+      classifierMetrics(gee_ytest, gee_ypred)
+    with grid.output_to(0, 1):
+      #sklearn metrics
+      display(widgets.HTML("<h3 style='text-align: center'>Scikit-learn metrics</h3>"))
+      classifierMetrics(y_test, y_pred)
+
+    #plotConfusionMatrix(normalize, gee_ytest, gee_ypred, y_test, y_pred)
+    print('\n')
+    _ = interact(
+        plotConfusionMatrix,
+        normalize=w_cm_normalize,
+        gee_ytest=fixed(gee_ytest),
+        gee_ypred=fixed(gee_ypred),
+        y_test=fixed(y_test),
+        y_pred=fixed(y_pred)
+    )
+
+  # Feature importance
+  with ctab.output_to(3):
+    #ctab.clear_tab()  # clears current
+    grid = cwidgets.Grid(3, 1)
+    with grid.output_to(0, 0):
+      fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12,6)) # figsize=(14,7)
+      gee_importance.plot.barh(ax=ax1, color=color_barplot)
+      ax1.set_title("GEE")
+      ax1.set_xlabel("Decrease in impurity (sum)")
+
+      mdi_importances.plot.barh(ax=ax2, color=color_barplot)
+      ax2.set_title("sklearn")
+      ax2.set_xlabel("Mean decrease in impurity (normalized)")
+
+      plt.suptitle("Impurity-based feature importance", fontsize=14)
+      plt.show()
+
+    with grid.output_to(1, 0):
+      fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12,6))
+      permu_train_importances.plot.barh(#xerr=permu_train_result.importances_std,
+                    ax=ax1, color=color_barplot)
+      ax1.set_title("Training data")
+      ax1.set_xlabel("Mean decrease in accuracy")
+
+      permu_test_importances.plot.barh(#xerr=permu_test_result.importances_std,
+                ax=ax2, color=color_barplot)
+      ax2.set_title("Testing data")
+      ax2.set_xlabel("Mean decrease in accuracy")
+
+      plt.suptitle("Permutation feature importance (barplot)", fontsize=14)
+      plt.show()
+
+    with grid.output_to(2, 0):
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12,6))
+        permu_train_df.boxplot(ax=ax1, grid=False, vert=False, color=color_barplot)
+        ax1.set_title("Training data")
+        ax1.set_xlabel("Mean decrease in accuracy")
+
+        permu_test_df.boxplot(ax=ax2,grid=False,  vert=False, color=color_barplot)
+        ax2.set_title("Testing data")
+        ax2.set_xlabel("Mean decrease in accuracy")
+
+        plt.suptitle("Permutation feature importance (boxplot)", fontsize=14)
+        plt.show()
+
+    # plot shap values
+  with ctab.output_to(4):
+    print('\nSHAP values summary plot for all classes')
+    #print('Bar color for each class not consistent with CLASS_PALETTE. To be updated.')
+    # shap.summary_plot(shap_values, X_test, sort=True, show=False)
+    shap.summary_plot(shap_values, X_test,
+                      show=False,
+                      class_names=CLASS_NAMES)
+
+    ax = plt.gca()
+    leg = ax.get_legend()
+
+    if leg:
+      # len(CLASS_NAMES) may not equal shap_obj.shape[2], len(shap_values)
+      nclasses = len(shap_values)
+      nfeatures = int(len(ax.patches)/nclasses)
+
+      # https://github.com/slundberg/shap/blob/master/shap/plots/_beeswarm.py, line 845
+      class_inds = np.argsort([-np.abs(shap_values[i]).mean() for i in range(nclasses)])
+      #print('class order: ', class_inds)
+
+      for i, c in enumerate(class_inds):
+        start = i*nfeatures
+        end = (i+1)*nfeatures
+
+        for p in ax.patches[start:end]:
+          p.set_facecolor(CLASS_PALETTE[c])
+
+        leg.legendHandles[i].set_color(CLASS_PALETTE[c])
+
+    plt.show()
+
+    # summarize the effects of all the features for one class
+    w_shap_figheight = widgets.FloatSlider(value=2.0)
+
+    def plotShapBar(shap_class):
+      ind = CLASS_NAMES.index(shap_class)
+      shap.plots.bar(shap_obj[:,:,ind], show=False)
+      fig_width, fig_height = plt.gcf().get_size_inches()
+      w_shap_figheight.value = fig_height
+      plt.show()
+
+    def plotShapBeeswarm(shap_class, w_shap_figheight):
+      ind = CLASS_NAMES.index(shap_class)
+      shap.plots.beeswarm(shap_obj[:,:,ind], show=False)
+      plt.gcf().set_figheight(w_shap_figheight)
+      plt.show()
+
+    def plotShapDependence(shap_class, main_index, interaction_index):
+      ind = CLASS_NAMES.index(shap_class)
+      shap.dependence_plot(main_index, shap_values[ind], X_test,
+                      interaction_index=interaction_index)
+      #plt.suptitle('Dependence plot', size=14, weight='bold')
+      plt.show()
+
+    out_shap_bar = interactive_output(plotShapBar, {'shap_class': w_shap_class})
+    out_shap_beeswarm = interactive_output(
+        plotShapBeeswarm,
+        {'shap_class': w_shap_class,
+         'w_shap_figheight': w_shap_figheight}
+    )
+    out_shap_dependence = interactive_output(
+        plotShapDependence,
+        {'shap_class': w_shap_class,
+         'main_index': w_shap_feature0,
+         'interaction_index': w_shap_feature1}
+    )
+    print('\n Shap values plot for selected class')
+    shap_grid = widgets.GridspecLayout(1, 2, layout=widgets.Layout(justify_content='center'))
+    shap_grid[0, 0] = out_shap_bar
+    shap_grid[0, 1] = out_shap_beeswarm
+    display(w_shap_class, shap_grid)
+
+    print('\n Dependence plots for selected features')
+    display(
+        widgets.HBox([w_shap_feature0, w_shap_feature1]),
+        out_shap_dependence
+    )
+
+  # zonal statistics
+  with ctab.output_to(5):
+    print('Select compute checkbox to calculate zonal areas.')
+    w_zonal_compute = widgets.Checkbox(
+        value=False,
+        description='Compute',
+        disabled=False
+    )
+
+    display(w_zonal_compute)
+
+    def zonalComputeChanged(value):
+      if value['new']:
+        with ctab.output_to(5):
+          if temporal_interval == 'all-time':
+            print('Calculating zonal areas ...\n')
+            zonal_dict = zonalStatistics(image_classified)
+            _ = interact(
+                plotZonalAreas,
+                width=w_barWidth,
+                rot=w_rotation,
+                zonal_dict=fixed(zonal_dict)
+            )
+          else:
+            if w_classified_tmpflag.value:
+              #colMosaic_tmp_classified = getClassifiedCollections()
+              df_tmpZonal = getClassifiedZonalAreas(classify=False)
+            else:
+              df_tmpZonal = getClassifiedZonalAreas()
+            print('\n')
+            _ = interact(
+              plotTemporalZonal,
+              rot=w_rotation,
+              select=w_zonal_selectClasses,
+              chartType=w_zonal_chartType,
+              subplot=w_zonal_subplot,
+              df=fixed(df_tmpZonal)
+            )
+    w_zonal_compute.observe(zonalComputeChanged, 'value')
+
+  # spatio-temporal dynamics
+  if not temporal_interval == 'all-time':
+    with ctab.output_to(6):
+      colMosaic_tmp_classified = getClassifiedCollections()
+
+      desc_width1 = {'description_width': '160px'}
+
+      # widgets for thumbnail display
+      w_col_dates = widgets.SelectMultiple(
+          options=col_dates_list,
+          value=col_dates_list[:3],
+          rows=6,
+          description='Select dates',
+          disabled=False,
+          style=desc_width1
+      )
+
+      w_grid_column = widgets.BoundedIntText(
+          value=2,
+          min=1,
+          max=6,
+          step=1,
+          description='Image columns', #rows defined by number of dates selected
+          disabled=False,
+          style=desc_width1
+      )
+
+      w_thumbnail_figsize = widgets.Text(
+          value='10, 8',
+          placeholder='In inches, separated by comma',
+          description='Figure size',
+          disabled=False,
+          style=desc_width1
+      )
+
+      w_thumbnail_dimension = widgets.BoundedIntText(
+          value=600,
+          min=200,
+          max=768,
+          step=1,
+          description='Thumbnail dimension',
+          disabled=False,
+          style=desc_width1
+      )
+
+      w_thumbnail = interactive(
+        plotClassifiedGrid,
+        {'manual': True, "manual_name": "Plot thumbnails in grid"},
+        select_dates=w_col_dates,
+        grid_column=w_grid_column,
+        figsize=w_thumbnail_figsize,
+        dim=w_thumbnail_dimension
+      )
+
+      w_btn_add2Map = widgets.Button(description='Add selected to map',
+                                button_style='',
+                                tooltip="Add classified image layers to map")
+      w_add2Map_output = widgets.Output()
+      def btn_add_map_layers(obj):
+        # keep only the first 5 layers
+        Map.layers = Map.layers[:5]
+        layer_lim = 5
+
+        resultVis1 = {'min': 0, 'max': len(CLASS_NAMES)-1, 'palette': CLASS_PALETTE}
+
+        w_add2Map_output.clear_output()
+        with w_add2Map_output:
+          print('Add classified images (up to {}) to map ...'.format(layer_lim))
+
+          col_index = [col_dates_list.index(d) for d in w_col_dates.value]
+
+          for s in col_index[:layer_lim]:
+            result = ee.Image(listOfImages.get(s))
+            Map.addLayer(result, resultVis1, 'Classified {}'.format(col_dates_list[s]))
+
+          # re-assign vis parameters, since for an unknown reason, other info
+          # (such as region, crs, dimension) are added to resultVis after this
+          # addLayer operation
+
+          print('Done. Use map layer managers to explore.\n')
+
+      w_btn_add2Map.on_click(btn_add_map_layers)
+
+      # widgets for gif export
+      w_gif_dimension = widgets.BoundedIntText(
+          value=600,
+          min=200,
+          max=768,
+          step=1,
+          description='dimension',
+          disabled=False,
+          style=desc_width1
+      )
+
+      w_gif_fps = widgets.BoundedIntText(
+          value=10,
+          min=1,
+          max=20,
+          step=1,
+          description='framesPerSecond',
+          disabled=False,
+          style=desc_width1
+      )
+
+      w_gif_fname = widgets.Text(
+          value='export_gif_classified',
+          description='GIF file name',
+          disabled=False,
+          style=desc_width1
+      )
+
+      w_btn_export_gif = widgets.Button(description='Export all to GIF',
+                                button_style='',
+                                tooltip="Export image collection as GIF")
+      w_export_gif_output = widgets.Output()
+      def btn_export_gif(obj):
+        w_export_gif_output.clear_output()
+        with w_export_gif_output:
+          print('Export the classified image collections ...')
+
+          framesPerSecond = w_gif_fps.value
+
+          # Define arguments for animation function parameters.
+          video_args = {
+              'dimensions': w_gif_dimension.value,
+              'region': region,
+              'framesPerSecond': w_gif_fps.value,
+              'bands': ['vis-red', 'vis-green', 'vis-blue'],
+          }
+
+          out_gif = w_gif_fname.value + '.gif'
+
+          resultVis1 = {'min': 0, 'max': len(CLASS_NAMES)-1, 'palette': CLASS_PALETTE}
+
+          tmp_rgb = colMosaic_tmp_classified.map(lambda img: ee.Image(img).visualize(**resultVis1))
+          tmp_rgb = ee.ImageCollection(tmp_rgb)
+
+          geemap.download_ee_video(tmp_rgb, video_args, out_gif)
+
+          print('Adding dates to GIF ...')
+          geemap.add_text_to_gif(
+            out_gif,
+            out_gif,
+            text_sequence=col_dates_list,
+            font_color='#00ff00',
+            duration=1000 / framesPerSecond,
+          )
+          print('Done. Please check ' + out_gif)
+          print('\n')
+
+      w_btn_export_gif.on_click(btn_export_gif)
+
+      w_export_gif = widgets.VBox([
+          w_gif_dimension,
+          w_gif_fps,
+          w_gif_fname,
+          w_btn_export_gif,
+          w_export_gif_output
+      ])
+
+      grid = cwidgets.Grid(2, 1)
+      with grid.output_to(0, 0):
+        #print('Export classified image collections')
+        display(widgets.HTML("<h3>Export classified image collections</h3>"))
+        display(w_export_gif)
+      with grid.output_to(1, 0):
+        #print('Display image thumbnails at select dates')
+        display(widgets.HTML("<h3>Display image thumbnails at select dates</h3>"))
+        display(w_thumbnail, w_btn_add2Map, w_add2Map_output)
+
+  #return ctab
