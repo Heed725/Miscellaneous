@@ -186,7 +186,7 @@
         // Toggle country selection
         function toggleCountrySelection(feature) {
           const countryName = feature.properties.name;
-          
+
           if (!selectedCountries[countryName]) {
             // Add to selection with full feature data
             selectedCountries[countryName] = feature;
@@ -290,9 +290,10 @@
           a.href = url;
           // Use first country name or "selected_countries" as filename
           const countryNames = Object.keys(selectedCountries);
-          const filename = countryNames.length === 1 
-            ? `${countryNames[0].replace(/\s+/g, '_')}.geojson`
-            : "selected_countries.geojson";
+          const filename =
+            countryNames.length === 1
+              ? `${selectedCountries[countryNames[0]].properties.SOVEREIGNT.replace(/\s+/g, "_")}.geojson`
+              : "selected_countries.geojson";
           a.download = filename;
           document.body.appendChild(a);
           a.click();
