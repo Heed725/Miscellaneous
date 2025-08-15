@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoJSON Viewer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        #map {
+            height: 400px;
+            z-index: 0;
+        }
+        .feature-properties {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .file-input-label {
+            transition: all 0.3s ease;
+        }
+        .file-input-label:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .feature-list-item:hover {
+            background-color: #f3f4f6;
+            cursor: pointer;
+        }
+        .feature-list-item.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .json-viewer {
+            font-family: monospace;
+            white-space: pre;
+        }
+        @media (max-width: 768px) {
+            .flex-col-reverse {
+                flex-direction: column-reverse;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="mb-8">
+            <h1 class="text-3xl font-bold text-blue-600">GeoJSON Viewer</h1>
+            <p class="text-gray-600 mt-2">Upload and visualize your GeoJSON files</p>
+        </header>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden mb-6">
+            <div class="p-4 border-b border-gray-200">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex-1 min-w-[200px]">
+                        <label for="geojson-file" class="file-input-label block w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-4 rounded-lg cursor-pointer text-center transition-colors">
+                            <span id="file-label">Choose GeoJSON File</span>
+                            <input type="file" id="geojson-file" accept=".geojson,.json" class="hidden" />
+                        </label>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button id="clear-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors disabled:opacity-50" disabled>
+                            Clear
+                        </button>
+                        <button id="sample-btn" class="bg-green-500 hover:bg-green-600 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                            Load Sample
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-0">
+                <!-- Feature List -->
+                <div class="lg:col-span-1 border-r border-gray-200">
+                    <div class="p-4 border-b border-gray-200 bg-gray-50">
+                        <h3 class="font-semibold text-gray-700">Features</h3>
+                    </div>
+                    <div id="feature-list" class="divide-y divide-gray-200 max-h-[400px] overflow-y-auto">
+                        <div class="p-4 text-center text-gray-500">
+                            No features loaded yet
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map and Properties -->
+                <div class="lg:col-span-2 flex flex-col">
+                    <div class="p-4 border-b border-gray-200 bg-gray-50">
+                        <h3 class="font-semibold text-gray-700">Map Preview</h3>
+                    </div>
+                    <div id="map" class="w-full"></div>
+                    
+                    <div class="p-4 border-t border-gray-200 bg-gray-50">
+                        <h3 class="font-semibold text-gray-700">Feature Properties</h3>
+                    </div>
+                    <div id="feature-properties" class="p-4 feature-properties">
+                        <div class="text-gray-500 text-center">Select a feature to view its properties</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="p-4 border-b border-gray-200 bg-gray-50">
+                <h3 class="font-semibold text-gray-700">Raw GeoJSON</h3>
+            </div>
+            <div id="raw-json" class="p-4 json-viewer text-sm text-gray-800 max-h-[300px] overflow-y-auto">
+                No GeoJSON loaded yet
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize map
+            const map = L.map('map').setView([0, 0], 2);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            let geojsonLayer = null;
+            let currentFeature = null;
+            let currentGeoJSON = null;
+
+            // File input handler
+            const fileInput = document.getElementById('geojson-file');
+            const fileLabel = document.getElementById('file-label');
+            const clearBtn = document.getElementById('clear-btn');
+            const sampleBtn = document.getElementById('sample-btn');
+            const featureList = document.getElementById('feature-list');
+            const featureProperties = document.getElementById('feature-properties');
+            const rawJson = document.getElementById('raw-json');
+
+            fileInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    fileLabel.textContent = file.name;
+                    readFile(file);
+                }
+            });
+
+            clearBtn.addEventListener('click', function() {
+                clearMap();
+            });
+
+            sampleBtn.addEventListener('click', function() {
+                loadSampleData();
+            });
+
+            function readFile(file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const geojson = JSON.parse(e.target.result);
+                        processGeoJSON(geojson);
+                    } catch (error) {
+                        alert('Invalid GeoJSON file: ' + error.message);
+                    }
+                };
+                reader.readAsText(file);
+            }
+
+            function processGeoJSON(geojson) {
+                // Clear previous data
+                if (geojsonLayer) {
+                    map.removeLayer(geojsonLayer);
+                }
+
+                currentGeoJSON = geojson;
+                
+                // Display raw JSON
+                rawJson.textContent = JSON.stringify(geojson, null, 2);
+                
+                // Process features
+                if (geojson.type === 'FeatureCollection' && geojson.features) {
+                    displayFeatureList(geojson.features);
+                    
+                    // Style function for GeoJSON features
+                    const style = {
+                        color: '#3b82f6',
+                        weight: 2,
+                        opacity: 1,
+                        fillOpacity: 0.3
+                    };
+                    
+                    const highlightStyle = {
+                        color: '#ef4444',
+                        weight: 3,
+                        opacity: 1,
+                        fillOpacity: 0.5
+                    };
+                    
+                    geojsonLayer = L.geoJSON(geojson, {
+                        style: style,
+                        onEachFeature: function(feature, layer) {
+                            layer.on({
+                                click: function(e) {
+                                    highlightFeature(feature, layer);
+                                },
+                                mouseover: function(e) {
+                                    layer.setStyle(highlightStyle);
+                                },
+                                mouseout: function(e) {
+                                    if (currentFeature !== feature) {
+                                        layer.setStyle(style);
+                                    }
+                                }
+                            });
+                        }
+                    }).addTo(map);
+                    
+                    // Fit map to bounds
+                    map.fitBounds(geojsonLayer.getBounds());
+                    
+                    // Enable clear button
+                    clearBtn.disabled = false;
+                } else {
+                    alert('The file does not contain valid GeoJSON FeatureCollection data.');
+                }
+            }
+
+            function displayFeatureList(features) {
+                featureList.innerHTML = '';
+                
+                if (features.length === 0) {
+                    featureList.innerHTML = '<div class="p-4 text-center text-gray-500">No features found</div>';
+                    return;
+                }
+                
+                features.forEach((feature, index) => {
+                    const featureItem = document.createElement('div');
+                    featureItem.className = 'p-3 feature-list-item hover:bg-gray-100 cursor-pointer';
+                    featureItem.textContent = `Feature ${index + 1}`;
+                    
+                    if (feature.properties && feature.properties.name) {
+                        featureItem.textContent += `: ${feature.properties.name}`;
+                    }
+                    
+                    featureItem.addEventListener('click', function() {
+                        highlightFeature(feature);
+                    });
+                    
+                    featureList.appendChild(featureItem);
+                });
+            }
+
+            function highlightFeature(feature, layer = null) {
+                // Reset previous feature highlight
+                if (currentFeature && geojsonLayer) {
+                    geojsonLayer.resetStyle();
+                }
+                
+                currentFeature = feature;
+                
+                // Highlight the clicked feature
+                if (layer) {
+                    layer.setStyle({
+                        color: '#ef4444',
+                        weight: 3,
+                        opacity: 1,
+                        fillOpacity: 0.5
+                    });
+                }
+                
+                // Highlight in feature list
+                const featureItems = document.querySelectorAll('.feature-list-item');
+                featureItems.forEach(item => {
+                    item.classList.remove('active', 'bg-blue-500', 'text-white');
+                });
+                
+                // Show properties
+                displayFeatureProperties(feature);
+            }
+
+            function displayFeatureProperties(feature) {
+                if (!feature.properties) {
+                    featureProperties.innerHTML = '<div class="text-gray-500">No properties available for this feature</div>';
+                    return;
+                }
+                
+                let html = '<table class="min-w-full divide-y divide-gray-200">';
+                html += '<tbody class="bg-white divide-y divide-gray-200">';
+                
+                for (const [key, value] of Object.entries(feature.properties)) {
+                    html += `
+                        <tr>
+                            <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-900">${key}</td>
+                            <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-500">${formatPropertyValue(value)}</td>
+                        </tr>
+                    `;
+                }
+                
+                html += '</tbody></table>';
+                featureProperties.innerHTML = html;
+            }
+
+            function formatPropertyValue(value) {
+                if (value === null || value === undefined) {
+                    return 'null';
+                }
+                if (Array.isArray(value)) {
+                    return `[${value.map(v => formatPropertyValue(v)).join(', ')}]`;
+                }
+                if (typeof value === 'object') {
+                    return JSON.stringify(value);
+                }
+                return value.toString();
+            }
+
+            function clearMap() {
+                if (geojsonLayer) {
+                    map.removeLayer(geojsonLayer);
+                    geojsonLayer = null;
+                }
+                
+                currentFeature = null;
+                currentGeoJSON = null;
+                
+                featureList.innerHTML = '<div class="p-4 text-center text-gray-500">No features loaded yet</div>';
+                featureProperties.innerHTML = '<div class="text-gray-500 text-center">Select a feature to view its properties</div>';
+                rawJson.textContent = 'No GeoJSON loaded yet';
+                fileLabel.textContent = 'Choose GeoJSON File';
+                fileInput.value = '';
+                clearBtn.disabled = true;
+                
+                map.setView([0, 0], 2);
+            }
+
+            function loadSampleData() {
+                const sampleGeoJSON = {
+                    "type": "FeatureCollection",
+                    "features": [
+                        {
+                            "type": "Feature",
+                            "properties": {
+                                "name": "Central Park",
+                                "type": "park",
+                                "area": "843 acres"
+                            },
+                            "geometry": {
+                                "type": "Polygon",
+                                "coordinates": [
+                                    [
+                                        [-73.9730, 40.7648],
+                                        [-73.9588, 40.8006],
+                                        [-73.9493, 40.7968],
+                                        [-73.9730, 40.7648]
+                                    ]
+                                ]
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "properties": {
+                                "name": "Statue of Liberty",
+                                "type": "monument",
+                                "height": "305 feet"
+                            },
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [-74.0445, 40.6892]
+                            }
+                        },
+                        {
+                            "type": "Feature",
+                            "properties": {
+                                "name": "Brooklyn Bridge",
+                                "type": "bridge",
+                                "length": "1,595.5 feet"
+                            },
+                            "geometry": {
+                                "type": "LineString",
+                                "coordinates": [
+                                    [-73.9969, 40.7061],
+                                    [-73.9903, 40.7033]
+                                ]
+                            }
+                        }
+                    ]
+                };
+                
+                processGeoJSON(sampleGeoJSON);
+                fileLabel.textContent = "Sample Data (New York)";
+            }
+        });
+    </script>
+</body>
+</html>
