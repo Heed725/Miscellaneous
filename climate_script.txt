@@ -1,0 +1,47 @@
+##Climate=group
+##Fetch TerraClimate Data=name
+##AOI=vector
+##Start_Date=string 2020-01-01
+##End_Date=string 2020-12-31
+##Output_Folder=folder
+
+from qgis.core import QgsProcessingException
+import os
+import geopandas as gpd
+import climatePy
+
+def process(AOI, Start_Date, End_Date, Output_Folder):
+    # Export AOI to a temporary GeoPackage for geopandas
+    temp_gpkg = os.path.join(Output_Folder, "aoi_temp.gpkg")
+    error = QgsVectorFileWriter.writeAsVectorFormat(AOI, temp_gpkg, "UTF-8", AOI.crs(), "GPKG")
+    if error[0] != QgsVectorFileWriter.NoError:
+        raise QgsProcessingException("Failed to export AOI to temporary file")
+
+    gdf = gpd.read_file(temp_gpkg)
+
+    # TerraClimate variables
+    vars_tc = [
+        "aet", "def", "pdsi", "pet", "pr", "ro", "soil",
+        "srad", "swe", "tmmn", "tmmx", "vap", "vpd", "vs"
+    ]
+
+    # Make sure output folder exists
+    os.makedirs(Output_Folder, exist_ok=True)
+
+    results = []
+    for var in vars_tc:
+        try:
+            feedback.pushInfo(f"Fetching TerraClimate variable: {var}")
+            raster = climatePy.getTerraClim(
+                AOI=gdf,
+                varname=var,
+                startDate=Start_Date,
+                endDate=End_Date
+            )
+            out_tif = os.path.join(Output_Folder, f"terraclimate_{var}_{Start_Date[:4]}.tif")
+            raster.rio.to_raster(out_tif)  # requires rioxarray
+            results.append(out_tif)
+        except Exception as e:
+            feedback.reportError(f"Error fetching {var}: {str(e)}")
+
+    return {"Output_Files": results}
