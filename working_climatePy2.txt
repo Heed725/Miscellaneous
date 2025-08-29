@@ -1,0 +1,41 @@
+# -------------------- IMPORT LIBRARIES --------------------
+import climatePy
+import geopandas as gpd
+import matplotlib.pyplot as plt
+
+# -------------------- LOAD YOUR AOI --------------------
+# Load shapefile
+aoi_path = "c:/users/user/Documents/Amazon.shp"
+aoi_gdf = gpd.read_file(aoi_path)
+
+# Ensure only the geometry is passed
+AOI = aoi_gdf.geometry.unary_union
+
+# -------------------- FETCH TERRA-CLIMATE DATA --------------------
+# Monthly precipitation data for all of 2018
+prcp = climatePy.getTerraClim(
+    AOI       = AOI,
+    varname   = "ppt",
+    startDate = "2018-01-01",
+    endDate   = "2018-12-01"
+)
+
+# Extract precipitation DataArray
+ppt = prcp["ppt"]
+
+# -------------------- PLOT GRID OF 12 MONTHS --------------------
+fig, axes = plt.subplots(3, 4, figsize=(15, 10), constrained_layout=True)
+
+# Loop over 12 months
+for i, ax in enumerate(axes.flat):
+    month_data = ppt.isel(time=i)
+    im = ax.imshow(month_data, cmap="Blues", origin="upper")
+    ax.set_title(f"Month {i+1}", fontsize=10)
+    ax.axis("off")
+
+# Add shared colorbar
+cbar = fig.colorbar(im, ax=axes.ravel().tolist(), shrink=0.6, label="Precipitation (mm)")
+
+# Main title
+plt.suptitle("Monthly Precipitation (Amazon AOI, 2018)", fontsize=14, weight="bold")
+plt.show()
