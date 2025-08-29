@@ -1,0 +1,24 @@
+# -------------------- IMPORT LIBRARIES --------------------
+import climatePy
+import geopandas as gpd
+from shapely.geometry import box  # import shapely properly
+
+# -------------------- LOAD YOUR AOI --------------------
+# Load shapefile
+aoi_path = "c:/users/user/Documents/Amazon.shp"
+aoi_gdf = gpd.read_file(aoi_path)
+
+# Ensure only the geometry is passed
+AOI = aoi_gdf.geometry.unary_union
+
+# -------------------- FETCH TERRA-CLIMATE DATA --------------------
+# Monthly precipitation data for all of 2018
+prcp = climatePy.getTerraClim(
+    AOI       = AOI,
+    varname   = "ppt",
+    startDate = "2018-01-01",
+    endDate   = "2018-12-01"
+)
+
+# -------------------- INSPECT DATA --------------------
+print(prcp)
