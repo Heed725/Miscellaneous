@@ -1,0 +1,52 @@
+# -------------------- IMPORT LIBRARIES --------------------
+import climatePy
+import geopandas as gpd
+import matplotlib.pyplot as plt
+import rioxarray  # for clipping xarray with vector AOI
+import calendar
+
+# -------------------- LOAD YOUR AOI --------------------
+# Load shapefile
+aoi_path = "c:/users/user/Documents/Amazon.shp"
+aoi_gdf = gpd.read_file(aoi_path)
+
+# Ensure AOI is in WGS84
+AOI = aoi_gdf.to_crs("EPSG:4326")
+aoi_geom = [AOI.unary_union]  # needs to be a list for clip
+
+# -------------------- FETCH TERRA-CLIMATE DATA --------------------
+prcp = climatePy.getTerraClim(
+    AOI       = AOI.unary_union,
+    varname   = "ppt",
+    startDate = "2018-01-01",
+    endDate   = "2018-12-01"
+)
+
+# Extract precipitation DataArray
+ppt = prcp["ppt"]
+
+# -------------------- FIX CRS --------------------
+# TerraClimate is EPSG:4326, but CRS is missing → assign it
+ppt = ppt.rio.write_crs("EPSG:4326")
+
+# -------------------- CLIP WITH AOI --------------------
+ppt_clipped = ppt.rio.clip(aoi_geom, AOI.crs, drop=True)
+
+# -------------------- PLOT GRID OF 12 MONTHS --------------------
+fig, axes = plt.subplots(3, 4, figsize=(15, 10), constrained_layout=True)
+
+for i, ax in enumerate(axes.flat):
+    month_data = ppt_clipped.isel(time=i)
+    im = month_data.plot.imshow(
+        ax=ax, cmap="Blues", add_colorbar=False
+    )
+    month_name = calendar.month_name[i+1]  # January ... December
+    ax.set_title(month_name, fontsize=10)
+    ax.axis("off")
+
+# Shared colorbar
+cbar = fig.colorbar(im, ax=axes.ravel().tolist(), shrink=0.6, label="Precipitation (mm)")
+
+# Main title
+plt.suptitle("Monthly Precipitation (Amazon AOI, 2018)", fontsize=14, weight="bold")
+plt.show()
