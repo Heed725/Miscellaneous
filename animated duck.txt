@@ -1,0 +1,112 @@
+QGIS Tutorial: Animated Duck Walking Around Country Borders
+
+This tutorial shows how to use geometry generators and expressions in QGIS to animate a sprite (a duck!) walking around country borders using the ne_110m_admin_0_countries dataset.
+
+1. Data Preparation
+
+Load the ne_110m_admin_0_countries shapefile (Natural Earth countries, 1:110m scale).
+
+Make sure rendering updates quickly:
+
+Go to Settings → Options → Rendering
+
+Set Render layers in parallel and Map update interval to 0.1 seconds.
+
+2. Add a Moving Point Marker
+
+We’ll use a Geometry Generator to place a moving point along the boundary of the largest polygon (useful for multi-part countries like the US or Indonesia).
+
+Style → Geometry Generator → Point
+
+Expression:
+
+with_variable(
+  'biggest_geom',
+  geometry_n(order_parts($geometry, 'area($geometry)', ascending:=false), 1),
+  line_interpolate_point(
+    boundary(@biggest_geom), 
+    perimeter(@biggest_geom)*(round(epoch(now())/100)%100/100)
+  )
+)
+
+
+This moves the point smoothly along the polygon perimeter, cycling every ~10 seconds.
+
+3. Use a Duck Sprite as Marker
+
+Instead of a simple symbol, we’ll assign a Raster Image Marker with a duck sprite from OpenGameArt
+.
+
+Symbol → Marker → Raster Image Marker
+
+Vertical anchor: Bottom
+
+Path expression for frame selection:
+
+with_variable(
+  'biggest_geom',
+  geometry_n(order_parts($geometry, 'area($geometry)', ascending:=false), 1),
+  '/your/path/Duck/Sprites/Walking-Running/'
+  || if(perimeter(@biggest_geom) < 10, 'Walking', 'Running')
+  || ' 00'
+  || to_string(round(epoch(now())/200)%2+1)
+  || '.png'
+)
+
+
+👉 This was meant to switch between "Walking" and "Running" sprites based on polygon size and alternate frames every 200ms.
+⚠️ Currently, the file path switching doesn’t always work — QGIS may not reload images dynamically.
+
+4. Adding Rotation (did not work)
+
+The idea was to rotate the duck to face along the boundary. Expression tried:
+
+with_variable(
+  'biggest_geom',
+  geometry_n(order_parts($geometry, 'area($geometry)', ascending:=false), 1),
+  line_interpolate_angle(
+    boundary(@biggest_geom), 
+    perimeter(@biggest_geom)*(round(epoch(now())/100)%100/100)
+  )
+)
+
+
+⚠️ Rotation worked with random values, but not with line_interpolate_angle(). Possibly a bug or limitation in QGIS rendering of raster markers.
+
+5. Adding a Trail Behind the Duck
+
+We can add more Geometry Generators to draw the path the duck has taken, inspired by QGIS’s built-in Cat Trail style.
+
+Style → Geometry Generator → Line
+
+Expression:
+
+with_variable(
+  'biggest_geom',
+  geometry_n(order_parts($geometry, 'area($geometry)', ascending:=false), 1),
+  line_substring(
+    boundary(@biggest_geom), 
+    0,
+    perimeter(@biggest_geom)*(round(epoch(now())/100)%100/100)
+  )
+)
+
+
+Style the line with dashed patterns, gradient colors, or blur effects for a nice animated trail.
+
+6. Limitations & Improvements
+
+Raster Image Marker lacks options for:
+
+Resampling algorithms
+
+Flipping
+
+Rotation (not working with expressions as expected)
+
+File path switching (Walking vs Running) doesn’t consistently refresh.
+
+Would be easier if QGIS supported sprite sheets directly instead of per-frame PNGs.
+
+✅ Result: You get a duck sprite "walking" around the largest country polygon’s border, leaving a trail behind.
+⚠️ Rotation and sprite switching are still experimental.
