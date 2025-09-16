@@ -1,0 +1,20 @@
+var dataset = ee.ImageCollection('ESA/WorldCover/v200').first();
+
+var visualization = {
+  bands: ['Map'],
+};
+
+Map.centerObject(dataset);
+
+Map.addLayer(dataset, visualization, 'Landcover');
+
+var mapInfo = dataset.getMap(visualization)
+
+print(mapInfo)
+
+
+Output: https://earthengine.googleapis.com/v1/projects/ee-hemedlungo/maps/7b64ca2828736acf5668cf1bda659a4a-9027d7cbd42c33051aeca96b5f0a3d2d/tiles/%7Bz%7D/%7Bx%7D/%7By%7D
+
+Output(XYZ): https://earthengine.googleapis.com/v1/projects/ee-hemedlungo/maps/7b64ca2828736acf5668cf1bda659a4a-9027d7cbd42c33051aeca96b5f0a3d2d/tiles/{z}/{x}/{y}
+
+#credit GisMadeEasy-ss
