@@ -1,0 +1,2 @@
+import os
+os.environ['GDAL_CHECK_DISK_FREE_SPACE'] = 'FALSE'
