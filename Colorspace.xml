@@ -1,0 +1,1368 @@
+<!DOCTYPE qgis_style>
+<qgis_style version="2">
+<symbols/>
+<colorramps>
+<colorramp type="preset" name="Pastel 1" tags="Qualitative">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="255,197,208,255"/>
+    <Option type="QString" name="preset_color_1" value="245,204,181,255"/>
+    <Option type="QString" name="preset_color_2" value="220,214,167,255"/>
+    <Option type="QString" name="preset_color_3" value="187,222,177,255"/>
+    <Option type="QString" name="preset_color_4" value="159,226,202,255"/>
+    <Option type="QString" name="preset_color_5" value="156,224,230,255"/>
+    <Option type="QString" name="preset_color_6" value="184,216,248,255"/>
+    <Option type="QString" name="preset_color_7" value="221,205,250,255"/>
+    <Option type="QString" name="preset_color_8" value="248,197,235,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Dark 2" tags="Qualitative">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="200,122,138,255"/>
+    <Option type="QString" name="preset_color_1" value="185,134,95,255"/>
+    <Option type="QString" name="preset_color_2" value="154,147,70,255"/>
+    <Option type="QString" name="preset_color_3" value="107,157,89,255"/>
+    <Option type="QString" name="preset_color_4" value="34,163,130,255"/>
+    <Option type="QString" name="preset_color_5" value="0,161,169,255"/>
+    <Option type="QString" name="preset_color_6" value="95,150,194,255"/>
+    <Option type="QString" name="preset_color_7" value="158,133,197,255"/>
+    <Option type="QString" name="preset_color_8" value="193,121,176,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Dark 3" tags="Qualitative">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="225,106,134,255"/>
+    <Option type="QString" name="preset_color_1" value="203,127,47,255"/>
+    <Option type="QString" name="preset_color_2" value="159,148,0,255"/>
+    <Option type="QString" name="preset_color_3" value="80,163,21,255"/>
+    <Option type="QString" name="preset_color_4" value="0,172,121,255"/>
+    <Option type="QString" name="preset_color_5" value="0,170,183,255"/>
+    <Option type="QString" name="preset_color_6" value="0,154,222,255"/>
+    <Option type="QString" name="preset_color_7" value="168,123,228,255"/>
+    <Option type="QString" name="preset_color_8" value="218,101,195,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Set 2" tags="Qualitative">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="237,144,164,255"/>
+    <Option type="QString" name="preset_color_1" value="220,158,112,255"/>
+    <Option type="QString" name="preset_color_2" value="183,174,80,255"/>
+    <Option type="QString" name="preset_color_3" value="126,186,104,255"/>
+    <Option type="QString" name="preset_color_4" value="29,193,153,255"/>
+    <Option type="QString" name="preset_color_5" value="0,191,200,255"/>
+    <Option type="QString" name="preset_color_6" value="111,177,231,255"/>
+    <Option type="QString" name="preset_color_7" value="187,157,234,255"/>
+    <Option type="QString" name="preset_color_8" value="228,143,209,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Set 3" tags="Qualitative">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="255,179,181,255"/>
+    <Option type="QString" name="preset_color_1" value="235,190,143,255"/>
+    <Option type="QString" name="preset_color_2" value="198,204,130,255"/>
+    <Option type="QString" name="preset_color_3" value="149,214,154,255"/>
+    <Option type="QString" name="preset_color_4" value="103,218,194,255"/>
+    <Option type="QString" name="preset_color_5" value="112,213,231,255"/>
+    <Option type="QString" name="preset_color_6" value="170,200,252,255"/>
+    <Option type="QString" name="preset_color_7" value="223,184,249,255"/>
+    <Option type="QString" name="preset_color_8" value="252,175,222,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Warm" tags="Qualitative">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="171,176,101,255"/>
+    <Option type="QString" name="preset_color_1" value="186,172,101,255"/>
+    <Option type="QString" name="preset_color_2" value="199,167,108,255"/>
+    <Option type="QString" name="preset_color_3" value="210,162,119,255"/>
+    <Option type="QString" name="preset_color_4" value="219,157,133,255"/>
+    <Option type="QString" name="preset_color_5" value="225,153,149,255"/>
+    <Option type="QString" name="preset_color_6" value="228,149,165,255"/>
+    <Option type="QString" name="preset_color_7" value="228,147,180,255"/>
+    <Option type="QString" name="preset_color_8" value="224,147,195,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Cold" tags="Qualitative">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="172,164,226,255"/>
+    <Option type="QString" name="preset_color_1" value="150,170,225,255"/>
+    <Option type="QString" name="preset_color_2" value="125,176,221,255"/>
+    <Option type="QString" name="preset_color_3" value="100,181,214,255"/>
+    <Option type="QString" name="preset_color_4" value="76,185,204,255"/>
+    <Option type="QString" name="preset_color_5" value="59,188,191,255"/>
+    <Option type="QString" name="preset_color_6" value="57,190,177,255"/>
+    <Option type="QString" name="preset_color_7" value="71,190,162,255"/>
+    <Option type="QString" name="preset_color_8" value="92,189,146,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Harmonic" tags="Qualitative">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="199,167,108,255"/>
+    <Option type="QString" name="preset_color_1" value="179,174,100,255"/>
+    <Option type="QString" name="preset_color_2" value="153,181,107,255"/>
+    <Option type="QString" name="preset_color_3" value="124,186,124,255"/>
+    <Option type="QString" name="preset_color_4" value="92,189,146,255"/>
+    <Option type="QString" name="preset_color_5" value="63,190,169,255"/>
+    <Option type="QString" name="preset_color_6" value="59,188,191,255"/>
+    <Option type="QString" name="preset_color_7" value="87,184,209,255"/>
+    <Option type="QString" name="preset_color_8" value="125,176,221,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Dynamic" tags="Qualitative">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="219,157,133,255"/>
+    <Option type="QString" name="preset_color_1" value="191,170,103,255"/>
+    <Option type="QString" name="preset_color_2" value="147,182,110,255"/>
+    <Option type="QString" name="preset_color_3" value="92,189,146,255"/>
+    <Option type="QString" name="preset_color_4" value="56,189,187,255"/>
+    <Option type="QString" name="preset_color_5" value="108,180,217,255"/>
+    <Option type="QString" name="preset_color_6" value="172,164,226,255"/>
+    <Option type="QString" name="preset_color_7" value="213,150,210,255"/>
+    <Option type="QString" name="preset_color_8" value="228,148,175,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Grays" tags="Sequential (single-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="27,27,27,255"/>
+    <Option type="QString" name="preset_color_1" value="57,57,57,255"/>
+    <Option type="QString" name="preset_color_2" value="88,88,88,255"/>
+    <Option type="QString" name="preset_color_3" value="120,120,120,255"/>
+    <Option type="QString" name="preset_color_4" value="150,150,150,255"/>
+    <Option type="QString" name="preset_color_5" value="180,180,180,255"/>
+    <Option type="QString" name="preset_color_6" value="208,208,208,255"/>
+    <Option type="QString" name="preset_color_7" value="232,232,232,255"/>
+    <Option type="QString" name="preset_color_8" value="249,249,249,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Light Grays" tags="Sequential (single-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="71,71,71,255"/>
+    <Option type="QString" name="preset_color_1" value="96,96,96,255"/>
+    <Option type="QString" name="preset_color_2" value="122,122,122,255"/>
+    <Option type="QString" name="preset_color_3" value="145,145,145,255"/>
+    <Option type="QString" name="preset_color_4" value="168,168,168,255"/>
+    <Option type="QString" name="preset_color_5" value="188,188,188,255"/>
+    <Option type="QString" name="preset_color_6" value="205,205,205,255"/>
+    <Option type="QString" name="preset_color_7" value="219,219,219,255"/>
+    <Option type="QString" name="preset_color_8" value="226,226,226,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Blues 2" tags="Sequential (single-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="2,63,165,255"/>
+    <Option type="QString" name="preset_color_1" value="72,92,168,255"/>
+    <Option type="QString" name="preset_color_2" value="106,118,178,255"/>
+    <Option type="QString" name="preset_color_3" value="135,143,189,255"/>
+    <Option type="QString" name="preset_color_4" value="161,166,200,255"/>
+    <Option type="QString" name="preset_color_5" value="183,187,209,255"/>
+    <Option type="QString" name="preset_color_6" value="203,205,217,255"/>
+    <Option type="QString" name="preset_color_7" value="218,219,223,255"/>
+    <Option type="QString" name="preset_color_8" value="226,226,226,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Blues 3" tags="Sequential (single-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="0,54,108,255"/>
+    <Option type="QString" name="preset_color_1" value="0,83,142,255"/>
+    <Option type="QString" name="preset_color_2" value="0,114,180,255"/>
+    <Option type="QString" name="preset_color_3" value="70,143,208,255"/>
+    <Option type="QString" name="preset_color_4" value="121,171,226,255"/>
+    <Option type="QString" name="preset_color_5" value="161,196,241,255"/>
+    <Option type="QString" name="preset_color_6" value="195,219,253,255"/>
+    <Option type="QString" name="preset_color_7" value="225,238,255,255"/>
+    <Option type="QString" name="preset_color_8" value="249,249,249,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Purples 2" tags="Sequential (single-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="60,38,146,255"/>
+    <Option type="QString" name="preset_color_1" value="84,72,149,255"/>
+    <Option type="QString" name="preset_color_2" value="108,100,162,255"/>
+    <Option type="QString" name="preset_color_3" value="132,126,176,255"/>
+    <Option type="QString" name="preset_color_4" value="157,152,190,255"/>
+    <Option type="QString" name="preset_color_5" value="180,178,205,255"/>
+    <Option type="QString" name="preset_color_6" value="203,201,218,255"/>
+    <Option type="QString" name="preset_color_7" value="224,223,231,255"/>
+    <Option type="QString" name="preset_color_8" value="241,241,241,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Purples 3" tags="Sequential (single-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="49,34,113,255"/>
+    <Option type="QString" name="preset_color_1" value="79,66,147,255"/>
+    <Option type="QString" name="preset_color_2" value="109,96,187,255"/>
+    <Option type="QString" name="preset_color_3" value="139,128,209,255"/>
+    <Option type="QString" name="preset_color_4" value="167,159,225,255"/>
+    <Option type="QString" name="preset_color_5" value="194,188,240,255"/>
+    <Option type="QString" name="preset_color_6" value="218,214,250,255"/>
+    <Option type="QString" name="preset_color_7" value="237,235,255,255"/>
+    <Option type="QString" name="preset_color_8" value="249,249,249,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Reds 2" tags="Sequential (single-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="127,0,13,255"/>
+    <Option type="QString" name="preset_color_1" value="149,51,57,255"/>
+    <Option type="QString" name="preset_color_2" value="169,86,90,255"/>
+    <Option type="QString" name="preset_color_3" value="186,118,121,255"/>
+    <Option type="QString" name="preset_color_4" value="202,148,150,255"/>
+    <Option type="QString" name="preset_color_5" value="215,177,178,255"/>
+    <Option type="QString" name="preset_color_6" value="226,203,203,255"/>
+    <Option type="QString" name="preset_color_7" value="235,225,225,255"/>
+    <Option type="QString" name="preset_color_8" value="241,241,241,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Reds 3" tags="Sequential (single-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="105,0,12,255"/>
+    <Option type="QString" name="preset_color_1" value="153,14,31,255"/>
+    <Option type="QString" name="preset_color_2" value="204,28,47,255"/>
+    <Option type="QString" name="preset_color_3" value="245,60,75,255"/>
+    <Option type="QString" name="preset_color_4" value="255,112,120,255"/>
+    <Option type="QString" name="preset_color_5" value="255,153,158,255"/>
+    <Option type="QString" name="preset_color_6" value="255,190,193,255"/>
+    <Option type="QString" name="preset_color_7" value="255,222,224,255"/>
+    <Option type="QString" name="preset_color_8" value="246,246,246,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Greens 2" tags="Sequential (single-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="0,96,39,255"/>
+    <Option type="QString" name="preset_color_1" value="59,117,74,255"/>
+    <Option type="QString" name="preset_color_2" value="94,139,104,255"/>
+    <Option type="QString" name="preset_color_3" value="125,159,132,255"/>
+    <Option type="QString" name="preset_color_4" value="154,179,159,255"/>
+    <Option type="QString" name="preset_color_5" value="181,198,184,255"/>
+    <Option type="QString" name="preset_color_6" value="205,215,207,255"/>
+    <Option type="QString" name="preset_color_7" value="226,230,227,255"/>
+    <Option type="QString" name="preset_color_8" value="241,241,241,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Greens 3" tags="Sequential (single-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="0,70,22,255"/>
+    <Option type="QString" name="preset_color_1" value="6,105,45,255"/>
+    <Option type="QString" name="preset_color_2" value="24,139,65,255"/>
+    <Option type="QString" name="preset_color_3" value="61,169,93,255"/>
+    <Option type="QString" name="preset_color_4" value="116,194,134,255"/>
+    <Option type="QString" name="preset_color_5" value="159,215,171,255"/>
+    <Option type="QString" name="preset_color_6" value="196,232,203,255"/>
+    <Option type="QString" name="preset_color_7" value="227,245,230,255"/>
+    <Option type="QString" name="preset_color_8" value="249,249,249,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Oslo" tags="Sequential (single-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="252,252,252,255"/>
+    <Option type="QString" name="preset_color_1" value="208,218,237,255"/>
+    <Option type="QString" name="preset_color_2" value="164,184,221,255"/>
+    <Option type="QString" name="preset_color_3" value="118,152,206,255"/>
+    <Option type="QString" name="preset_color_4" value="60,121,192,255"/>
+    <Option type="QString" name="preset_color_5" value="44,90,145,255"/>
+    <Option type="QString" name="preset_color_6" value="29,62,100,255"/>
+    <Option type="QString" name="preset_color_7" value="15,35,59,255"/>
+    <Option type="QString" name="preset_color_8" value="4,4,4,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Purple-Blue" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="107,0,119,255"/>
+    <Option type="QString" name="preset_color_1" value="111,65,141,255"/>
+    <Option type="QString" name="preset_color_2" value="118,101,164,255"/>
+    <Option type="QString" name="preset_color_3" value="128,133,184,255"/>
+    <Option type="QString" name="preset_color_4" value="141,163,202,255"/>
+    <Option type="QString" name="preset_color_5" value="160,189,216,255"/>
+    <Option type="QString" name="preset_color_6" value="183,213,228,255"/>
+    <Option type="QString" name="preset_color_7" value="210,231,237,255"/>
+    <Option type="QString" name="preset_color_8" value="241,241,241,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Red-Purple" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="125,1,18,255"/>
+    <Option type="QString" name="preset_color_1" value="154,42,77,255"/>
+    <Option type="QString" name="preset_color_2" value="179,74,120,255"/>
+    <Option type="QString" name="preset_color_3" value="199,106,158,255"/>
+    <Option type="QString" name="preset_color_4" value="214,138,190,255"/>
+    <Option type="QString" name="preset_color_5" value="225,168,217,255"/>
+    <Option type="QString" name="preset_color_6" value="233,196,238,255"/>
+    <Option type="QString" name="preset_color_7" value="239,221,250,255"/>
+    <Option type="QString" name="preset_color_8" value="242,240,246,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Red-Blue" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="169,49,84,255"/>
+    <Option type="QString" name="preset_color_1" value="179,60,115,255"/>
+    <Option type="QString" name="preset_color_2" value="186,75,142,255"/>
+    <Option type="QString" name="preset_color_3" value="189,92,165,255"/>
+    <Option type="QString" name="preset_color_4" value="188,110,185,255"/>
+    <Option type="QString" name="preset_color_5" value="185,129,200,255"/>
+    <Option type="QString" name="preset_color_6" value="180,148,213,255"/>
+    <Option type="QString" name="preset_color_7" value="176,166,222,255"/>
+    <Option type="QString" name="preset_color_8" value="174,182,229,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Purple-Orange" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="91,55,148,255"/>
+    <Option type="QString" name="preset_color_1" value="125,67,155,255"/>
+    <Option type="QString" name="preset_color_2" value="153,83,161,255"/>
+    <Option type="QString" name="preset_color_3" value="178,102,167,255"/>
+    <Option type="QString" name="preset_color_4" value="200,122,173,255"/>
+    <Option type="QString" name="preset_color_5" value="219,144,178,255"/>
+    <Option type="QString" name="preset_color_6" value="235,168,186,255"/>
+    <Option type="QString" name="preset_color_7" value="248,192,197,255"/>
+    <Option type="QString" name="preset_color_8" value="248,220,217,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Purple-Yellow" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="128,20,110,255"/>
+    <Option type="QString" name="preset_color_1" value="129,69,160,255"/>
+    <Option type="QString" name="preset_color_2" value="100,116,185,255"/>
+    <Option type="QString" name="preset_color_3" value="57,154,194,255"/>
+    <Option type="QString" name="preset_color_4" value="52,184,192,255"/>
+    <Option type="QString" name="preset_color_5" value="106,207,186,255"/>
+    <Option type="QString" name="preset_color_6" value="164,224,183,255"/>
+    <Option type="QString" name="preset_color_7" value="213,236,192,255"/>
+    <Option type="QString" name="preset_color_8" value="245,242,216,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Blue-Yellow" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="45,49,132,255"/>
+    <Option type="QString" name="preset_color_1" value="9,103,154,255"/>
+    <Option type="QString" name="preset_color_2" value="10,146,172,255"/>
+    <Option type="QString" name="preset_color_3" value="67,181,184,255"/>
+    <Option type="QString" name="preset_color_4" value="119,207,190,255"/>
+    <Option type="QString" name="preset_color_5" value="165,226,195,255"/>
+    <Option type="QString" name="preset_color_6" value="203,237,202,255"/>
+    <Option type="QString" name="preset_color_7" value="230,242,212,255"/>
+    <Option type="QString" name="preset_color_8" value="243,241,228,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Green-Yellow" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="0,110,55,255"/>
+    <Option type="QString" name="preset_color_1" value="71,139,83,255"/>
+    <Option type="QString" name="preset_color_2" value="116,165,110,255"/>
+    <Option type="QString" name="preset_color_3" value="152,188,136,255"/>
+    <Option type="QString" name="preset_color_4" value="183,208,160,255"/>
+    <Option type="QString" name="preset_color_5" value="209,224,182,255"/>
+    <Option type="QString" name="preset_color_6" value="230,237,202,255"/>
+    <Option type="QString" name="preset_color_7" value="243,244,219,255"/>
+    <Option type="QString" name="preset_color_8" value="249,247,234,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Red-Yellow" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="125,1,18,255"/>
+    <Option type="QString" name="preset_color_1" value="148,55,29,255"/>
+    <Option type="QString" name="preset_color_2" value="170,89,44,255"/>
+    <Option type="QString" name="preset_color_3" value="189,121,64,255"/>
+    <Option type="QString" name="preset_color_4" value="206,151,88,255"/>
+    <Option type="QString" name="preset_color_5" value="221,180,114,255"/>
+    <Option type="QString" name="preset_color_6" value="232,206,143,255"/>
+    <Option type="QString" name="preset_color_7" value="240,228,175,255"/>
+    <Option type="QString" name="preset_color_8" value="242,241,228,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Heat" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="142,6,59,255"/>
+    <Option type="QString" name="preset_color_1" value="175,69,72,255"/>
+    <Option type="QString" name="preset_color_2" value="203,109,83,255"/>
+    <Option type="QString" name="preset_color_3" value="224,142,92,255"/>
+    <Option type="QString" name="preset_color_4" value="238,171,101,255"/>
+    <Option type="QString" name="preset_color_5" value="245,195,110,255"/>
+    <Option type="QString" name="preset_color_6" value="245,213,121,255"/>
+    <Option type="QString" name="preset_color_7" value="238,226,134,255"/>
+    <Option type="QString" name="preset_color_8" value="226,230,189,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Heat 2" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="211,63,106,255"/>
+    <Option type="QString" name="preset_color_1" value="219,89,92,255"/>
+    <Option type="QString" name="preset_color_2" value="225,112,76,255"/>
+    <Option type="QString" name="preset_color_3" value="230,133,59,255"/>
+    <Option type="QString" name="preset_color_4" value="233,154,44,255"/>
+    <Option type="QString" name="preset_color_5" value="234,175,41,255"/>
+    <Option type="QString" name="preset_color_6" value="232,195,60,255"/>
+    <Option type="QString" name="preset_color_7" value="229,215,93,255"/>
+    <Option type="QString" name="preset_color_8" value="226,230,189,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Terrain" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="38,166,58,255"/>
+    <Option type="QString" name="preset_color_1" value="110,173,28,255"/>
+    <Option type="QString" name="preset_color_2" value="155,179,6,255"/>
+    <Option type="QString" name="preset_color_3" value="192,183,39,255"/>
+    <Option type="QString" name="preset_color_4" value="225,187,78,255"/>
+    <Option type="QString" name="preset_color_5" value="255,192,118,255"/>
+    <Option type="QString" name="preset_color_6" value="255,197,158,255"/>
+    <Option type="QString" name="preset_color_7" value="255,204,197,255"/>
+    <Option type="QString" name="preset_color_8" value="241,241,241,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Terrain 2" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="2,124,30,255"/>
+    <Option type="QString" name="preset_color_1" value="85,141,45,255"/>
+    <Option type="QString" name="preset_color_2" value="127,157,67,255"/>
+    <Option type="QString" name="preset_color_3" value="162,171,92,255"/>
+    <Option type="QString" name="preset_color_4" value="192,184,120,255"/>
+    <Option type="QString" name="preset_color_5" value="216,196,147,255"/>
+    <Option type="QString" name="preset_color_6" value="233,206,174,255"/>
+    <Option type="QString" name="preset_color_7" value="242,216,200,255"/>
+    <Option type="QString" name="preset_color_8" value="226,226,226,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Viridis" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="75,0,85,255"/>
+    <Option type="QString" name="preset_color_1" value="64,49,115,255"/>
+    <Option type="QString" name="preset_color_2" value="0,88,139,255"/>
+    <Option type="QString" name="preset_color_3" value="0,123,151,255"/>
+    <Option type="QString" name="preset_color_4" value="0,155,149,255"/>
+    <Option type="QString" name="preset_color_5" value="0,183,133,255"/>
+    <Option type="QString" name="preset_color_6" value="83,204,103,255"/>
+    <Option type="QString" name="preset_color_7" value="178,220,60,255"/>
+    <Option type="QString" name="preset_color_8" value="253,227,51,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Plasma" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="0,24,137,255"/>
+    <Option type="QString" name="preset_color_1" value="95,0,140,255"/>
+    <Option type="QString" name="preset_color_2" value="145,0,141,255"/>
+    <Option type="QString" name="preset_color_3" value="182,36,133,255"/>
+    <Option type="QString" name="preset_color_4" value="210,78,113,255"/>
+    <Option type="QString" name="preset_color_5" value="228,119,77,255"/>
+    <Option type="QString" name="preset_color_6" value="237,162,0,255"/>
+    <Option type="QString" name="preset_color_7" value="233,207,0,255"/>
+    <Option type="QString" name="preset_color_8" value="218,255,71,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Inferno" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="4,4,4,255"/>
+    <Option type="QString" name="preset_color_1" value="45,18,67,255"/>
+    <Option type="QString" name="preset_color_2" value="97,17,99,255"/>
+    <Option type="QString" name="preset_color_3" value="150,20,116,255"/>
+    <Option type="QString" name="preset_color_4" value="197,50,112,255"/>
+    <Option type="QString" name="preset_color_5" value="235,92,76,255"/>
+    <Option type="QString" name="preset_color_6" value="246,148,34,255"/>
+    <Option type="QString" name="preset_color_7" value="248,201,82,255"/>
+    <Option type="QString" name="preset_color_8" value="255,254,158,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Rocket" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="7,7,7,255"/>
+    <Option type="QString" name="preset_color_1" value="60,3,61,255"/>
+    <Option type="QString" name="preset_color_2" value="105,0,86,255"/>
+    <Option type="QString" name="preset_color_3" value="151,0,100,255"/>
+    <Option type="QString" name="preset_color_4" value="195,14,98,255"/>
+    <Option type="QString" name="preset_color_5" value="230,70,75,255"/>
+    <Option type="QString" name="preset_color_6" value="237,131,83,255"/>
+    <Option type="QString" name="preset_color_7" value="241,184,137,255"/>
+    <Option type="QString" name="preset_color_8" value="253,245,235,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Mako" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="7,7,7,255"/>
+    <Option type="QString" name="preset_color_1" value="49,26,53,255"/>
+    <Option type="QString" name="preset_color_2" value="66,52,96,255"/>
+    <Option type="QString" name="preset_color_3" value="55,87,136,255"/>
+    <Option type="QString" name="preset_color_4" value="0,127,168,255"/>
+    <Option type="QString" name="preset_color_5" value="0,165,179,255"/>
+    <Option type="QString" name="preset_color_6" value="72,194,180,255"/>
+    <Option type="QString" name="preset_color_7" value="160,221,194,255"/>
+    <Option type="QString" name="preset_color_8" value="224,247,225,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Dark Mint" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="14,63,92,255"/>
+    <Option type="QString" name="preset_color_1" value="26,86,107,255"/>
+    <Option type="QString" name="preset_color_2" value="42,109,122,255"/>
+    <Option type="QString" name="preset_color_3" value="63,132,137,255"/>
+    <Option type="QString" name="preset_color_4" value="87,156,151,255"/>
+    <Option type="QString" name="preset_color_5" value="114,180,166,255"/>
+    <Option type="QString" name="preset_color_6" value="143,204,180,255"/>
+    <Option type="QString" name="preset_color_7" value="175,228,196,255"/>
+    <Option type="QString" name="preset_color_8" value="209,251,212,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Mint" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="0,93,103,255"/>
+    <Option type="QString" name="preset_color_1" value="0,111,115,255"/>
+    <Option type="QString" name="preset_color_2" value="27,129,127,255"/>
+    <Option type="QString" name="preset_color_3" value="68,148,140,255"/>
+    <Option type="QString" name="preset_color_4" value="100,167,154,255"/>
+    <Option type="QString" name="preset_color_5" value="129,187,169,255"/>
+    <Option type="QString" name="preset_color_6" value="159,206,186,255"/>
+    <Option type="QString" name="preset_color_7" value="189,225,205,255"/>
+    <Option type="QString" name="preset_color_8" value="224,242,230,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="BluGrn" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="20,80,92,255"/>
+    <Option type="QString" name="preset_color_1" value="30,100,107,255"/>
+    <Option type="QString" name="preset_color_2" value="42,121,121,255"/>
+    <Option type="QString" name="preset_color_3" value="58,142,133,255"/>
+    <Option type="QString" name="preset_color_4" value="76,163,143,255"/>
+    <Option type="QString" name="preset_color_5" value="99,183,151,255"/>
+    <Option type="QString" name="preset_color_6" value="129,202,159,255"/>
+    <Option type="QString" name="preset_color_7" value="166,217,172,255"/>
+    <Option type="QString" name="preset_color_8" value="199,229,190,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Teal" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="42,86,118,255"/>
+    <Option type="QString" name="preset_color_1" value="51,107,136,255"/>
+    <Option type="QString" name="preset_color_2" value="59,128,154,255"/>
+    <Option type="QString" name="preset_color_3" value="80,149,168,255"/>
+    <Option type="QString" name="preset_color_4" value="103,169,182,255"/>
+    <Option type="QString" name="preset_color_5" value="127,188,195,255"/>
+    <Option type="QString" name="preset_color_6" value="153,207,209,255"/>
+    <Option type="QString" name="preset_color_7" value="179,225,222,255"/>
+    <Option type="QString" name="preset_color_8" value="210,238,234,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="TealGrn" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="23,127,151,255"/>
+    <Option type="QString" name="preset_color_1" value="0,146,161,255"/>
+    <Option type="QString" name="preset_color_2" value="0,164,168,255"/>
+    <Option type="QString" name="preset_color_3" value="11,181,173,255"/>
+    <Option type="QString" name="preset_color_4" value="46,198,175,255"/>
+    <Option type="QString" name="preset_color_5" value="77,213,175,255"/>
+    <Option type="QString" name="preset_color_6" value="114,226,173,255"/>
+    <Option type="QString" name="preset_color_7" value="152,235,175,255"/>
+    <Option type="QString" name="preset_color_8" value="183,241,178,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Emrld" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="11,65,81,255"/>
+    <Option type="QString" name="preset_color_1" value="0,87,98,255"/>
+    <Option type="QString" name="preset_color_2" value="0,110,112,255"/>
+    <Option type="QString" name="preset_color_3" value="10,134,123,255"/>
+    <Option type="QString" name="preset_color_4" value="50,157,132,255"/>
+    <Option type="QString" name="preset_color_5" value="88,180,138,255"/>
+    <Option type="QString" name="preset_color_6" value="128,202,144,255"/>
+    <Option type="QString" name="preset_color_7" value="169,223,151,255"/>
+    <Option type="QString" name="preset_color_8" value="212,243,163,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="BluYl" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="46,79,121,255"/>
+    <Option type="QString" name="preset_color_1" value="26,104,134,255"/>
+    <Option type="QString" name="preset_color_2" value="2,129,144,255"/>
+    <Option type="QString" name="preset_color_3" value="29,153,151,255"/>
+    <Option type="QString" name="preset_color_4" value="70,176,155,255"/>
+    <Option type="QString" name="preset_color_5" value="112,198,158,255"/>
+    <Option type="QString" name="preset_color_6" value="156,218,161,255"/>
+    <Option type="QString" name="preset_color_7" value="202,237,167,255"/>
+    <Option type="QString" name="preset_color_8" value="249,255,175,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="ag_GrnYl" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="37,86,104,255"/>
+    <Option type="QString" name="preset_color_1" value="6,106,117,255"/>
+    <Option type="QString" name="preset_color_2" value="0,126,125,255"/>
+    <Option type="QString" name="preset_color_3" value="0,147,128,255"/>
+    <Option type="QString" name="preset_color_4" value="23,167,126,255"/>
+    <Option type="QString" name="preset_color_5" value="81,185,119,255"/>
+    <Option type="QString" name="preset_color_6" value="130,204,108,255"/>
+    <Option type="QString" name="preset_color_7" value="181,221,96,255"/>
+    <Option type="QString" name="preset_color_8" value="237,239,92,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Peach" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="234,76,59,255"/>
+    <Option type="QString" name="preset_color_1" value="238,101,68,255"/>
+    <Option type="QString" name="preset_color_2" value="241,123,81,255"/>
+    <Option type="QString" name="preset_color_3" value="244,142,97,255"/>
+    <Option type="QString" name="preset_color_4" value="246,161,115,255"/>
+    <Option type="QString" name="preset_color_5" value="248,178,135,255"/>
+    <Option type="QString" name="preset_color_6" value="249,194,156,255"/>
+    <Option type="QString" name="preset_color_7" value="250,209,176,255"/>
+    <Option type="QString" name="preset_color_8" value="250,221,195,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="PinkYl" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="226,76,128,255"/>
+    <Option type="QString" name="preset_color_1" value="233,102,119,255"/>
+    <Option type="QString" name="preset_color_2" value="239,126,113,255"/>
+    <Option type="QString" name="preset_color_3" value="243,148,111,255"/>
+    <Option type="QString" name="preset_color_4" value="246,169,114,255"/>
+    <Option type="QString" name="preset_color_5" value="248,189,123,255"/>
+    <Option type="QString" name="preset_color_6" value="250,209,139,255"/>
+    <Option type="QString" name="preset_color_7" value="251,227,158,255"/>
+    <Option type="QString" name="preset_color_8" value="253,246,181,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Burg" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="103,34,63,255"/>
+    <Option type="QString" name="preset_color_1" value="129,48,78,255"/>
+    <Option type="QString" name="preset_color_2" value="156,62,93,255"/>
+    <Option type="QString" name="preset_color_3" value="183,77,108,255"/>
+    <Option type="QString" name="preset_color_4" value="203,98,123,255"/>
+    <Option type="QString" name="preset_color_5" value="217,124,140,255"/>
+    <Option type="QString" name="preset_color_6" value="230,149,159,255"/>
+    <Option type="QString" name="preset_color_7" value="244,173,179,255"/>
+    <Option type="QString" name="preset_color_8" value="255,197,199,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="BurgYl" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="119,44,75,255"/>
+    <Option type="QString" name="preset_color_1" value="142,61,84,255"/>
+    <Option type="QString" name="preset_color_2" value="167,79,90,255"/>
+    <Option type="QString" name="preset_color_3" value="191,98,94,255"/>
+    <Option type="QString" name="preset_color_4" value="214,118,93,255"/>
+    <Option type="QString" name="preset_color_5" value="227,144,104,255"/>
+    <Option type="QString" name="preset_color_6" value="237,170,125,255"/>
+    <Option type="QString" name="preset_color_7" value="244,196,153,255"/>
+    <Option type="QString" name="preset_color_8" value="248,223,193,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="RedOr" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="177,63,99,255"/>
+    <Option type="QString" name="preset_color_1" value="194,78,99,255"/>
+    <Option type="QString" name="preset_color_2" value="211,93,96,255"/>
+    <Option type="QString" name="preset_color_3" value="221,112,96,255"/>
+    <Option type="QString" name="preset_color_4" value="227,133,102,255"/>
+    <Option type="QString" name="preset_color_5" value="233,152,112,255"/>
+    <Option type="QString" name="preset_color_6" value="238,172,125,255"/>
+    <Option type="QString" name="preset_color_7" value="243,190,144,255"/>
+    <Option type="QString" name="preset_color_8" value="245,209,168,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="OrYel" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="239,72,104,255"/>
+    <Option type="QString" name="preset_color_1" value="245,93,87,255"/>
+    <Option type="QString" name="preset_color_2" value="245,116,77,255"/>
+    <Option type="QString" name="preset_color_3" value="244,136,72,255"/>
+    <Option type="QString" name="preset_color_4" value="243,155,76,255"/>
+    <Option type="QString" name="preset_color_5" value="241,172,89,255"/>
+    <Option type="QString" name="preset_color_6" value="239,188,107,255"/>
+    <Option type="QString" name="preset_color_7" value="237,203,129,255"/>
+    <Option type="QString" name="preset_color_8" value="236,217,153,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Purp" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="100,90,159,255"/>
+    <Option type="QString" name="preset_color_1" value="122,103,177,255"/>
+    <Option type="QString" name="preset_color_2" value="143,117,192,255"/>
+    <Option type="QString" name="preset_color_3" value="163,133,203,255"/>
+    <Option type="QString" name="preset_color_4" value="182,150,214,255"/>
+    <Option type="QString" name="preset_color_5" value="201,167,226,255"/>
+    <Option type="QString" name="preset_color_6" value="219,185,236,255"/>
+    <Option type="QString" name="preset_color_7" value="235,204,246,255"/>
+    <Option type="QString" name="preset_color_8" value="246,226,251,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="PurpOr" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="88,60,136,255"/>
+    <Option type="QString" name="preset_color_1" value="124,69,152,255"/>
+    <Option type="QString" name="preset_color_2" value="157,80,166,255"/>
+    <Option type="QString" name="preset_color_3" value="183,98,171,255"/>
+    <Option type="QString" name="preset_color_4" value="204,120,175,255"/>
+    <Option type="QString" name="preset_color_5" value="222,143,179,255"/>
+    <Option type="QString" name="preset_color_6" value="237,167,186,255"/>
+    <Option type="QString" name="preset_color_7" value="247,192,197,255"/>
+    <Option type="QString" name="preset_color_8" value="248,220,217,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Sunset" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="112,77,158,255"/>
+    <Option type="QString" name="preset_color_1" value="154,81,167,255"/>
+    <Option type="QString" name="preset_color_2" value="188,90,169,255"/>
+    <Option type="QString" name="preset_color_3" value="216,104,163,255"/>
+    <Option type="QString" name="preset_color_4" value="237,124,151,255"/>
+    <Option type="QString" name="preset_color_5" value="246,151,138,255"/>
+    <Option type="QString" name="preset_color_6" value="249,178,130,255"/>
+    <Option type="QString" name="preset_color_7" value="248,205,134,255"/>
+    <Option type="QString" name="preset_color_8" value="243,231,154,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Magenta" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="109,28,104,255"/>
+    <Option type="QString" name="preset_color_1" value="133,49,119,255"/>
+    <Option type="QString" name="preset_color_2" value="158,67,135,255"/>
+    <Option type="QString" name="preset_color_3" value="183,85,151,255"/>
+    <Option type="QString" name="preset_color_4" value="203,108,162,255"/>
+    <Option type="QString" name="preset_color_5" value="219,131,173,255"/>
+    <Option type="QString" name="preset_color_6" value="233,155,185,255"/>
+    <Option type="QString" name="preset_color_7" value="244,178,197,255"/>
+    <Option type="QString" name="preset_color_8" value="243,202,210,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="SunsetDark" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="125,29,103,255"/>
+    <Option type="QString" name="preset_color_1" value="160,32,116,255"/>
+    <Option type="QString" name="preset_color_2" value="194,43,121,255"/>
+    <Option type="QString" name="preset_color_3" value="225,60,119,255"/>
+    <Option type="QString" name="preset_color_4" value="246,90,109,255"/>
+    <Option type="QString" name="preset_color_5" value="253,128,109,255"/>
+    <Option type="QString" name="preset_color_6" value="255,160,118,255"/>
+    <Option type="QString" name="preset_color_7" value="255,189,136,255"/>
+    <Option type="QString" name="preset_color_8" value="255,217,159,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="ag_Sunset" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="75,29,145,255"/>
+    <Option type="QString" name="preset_color_1" value="128,17,154,255"/>
+    <Option type="QString" name="preset_color_2" value="168,19,156,255"/>
+    <Option type="QString" name="preset_color_3" value="202,42,151,255"/>
+    <Option type="QString" name="preset_color_4" value="229,71,135,255"/>
+    <Option type="QString" name="preset_color_5" value="241,110,111,255"/>
+    <Option type="QString" name="preset_color_6" value="243,147,95,255"/>
+    <Option type="QString" name="preset_color_7" value="240,181,102,255"/>
+    <Option type="QString" name="preset_color_8" value="231,211,154,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="BrwnYl" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="84,28,58,255"/>
+    <Option type="QString" name="preset_color_1" value="112,48,72,255"/>
+    <Option type="QString" name="preset_color_2" value="141,70,83,255"/>
+    <Option type="QString" name="preset_color_3" value="170,92,90,255"/>
+    <Option type="QString" name="preset_color_4" value="189,120,100,255"/>
+    <Option type="QString" name="preset_color_5" value="202,149,120,255"/>
+    <Option type="QString" name="preset_color_6" value="214,177,145,255"/>
+    <Option type="QString" name="preset_color_7" value="225,203,174,255"/>
+    <Option type="QString" name="preset_color_8" value="235,226,202,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="YlOrRd" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="125,0,37,255"/>
+    <Option type="QString" name="preset_color_1" value="175,17,0,255"/>
+    <Option type="QString" name="preset_color_2" value="218,53,0,255"/>
+    <Option type="QString" name="preset_color_3" value="238,103,0,255"/>
+    <Option type="QString" name="preset_color_4" value="243,147,0,255"/>
+    <Option type="QString" name="preset_color_5" value="246,183,50,255"/>
+    <Option type="QString" name="preset_color_6" value="249,214,126,255"/>
+    <Option type="QString" name="preset_color_7" value="253,238,174,255"/>
+    <Option type="QString" name="preset_color_8" value="255,255,200,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="YlOrBr" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="104,39,20,255"/>
+    <Option type="QString" name="preset_color_1" value="154,63,0,255"/>
+    <Option type="QString" name="preset_color_2" value="199,92,0,255"/>
+    <Option type="QString" name="preset_color_3" value="233,125,0,255"/>
+    <Option type="QString" name="preset_color_4" value="242,164,0,255"/>
+    <Option type="QString" name="preset_color_5" value="247,197,76,255"/>
+    <Option type="QString" name="preset_color_6" value="250,224,148,255"/>
+    <Option type="QString" name="preset_color_7" value="253,244,198,255"/>
+    <Option type="QString" name="preset_color_8" value="254,254,227,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="OrRd" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="136,0,45,255"/>
+    <Option type="QString" name="preset_color_1" value="179,15,50,255"/>
+    <Option type="QString" name="preset_color_2" value="221,59,36,255"/>
+    <Option type="QString" name="preset_color_3" value="241,108,57,255"/>
+    <Option type="QString" name="preset_color_4" value="254,148,92,255"/>
+    <Option type="QString" name="preset_color_5" value="255,182,129,255"/>
+    <Option type="QString" name="preset_color_6" value="255,211,167,255"/>
+    <Option type="QString" name="preset_color_7" value="255,233,204,255"/>
+    <Option type="QString" name="preset_color_8" value="253,245,235,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Oranges" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="128,42,7,255"/>
+    <Option type="QString" name="preset_color_1" value="170,60,0,255"/>
+    <Option type="QString" name="preset_color_2" value="211,80,0,255"/>
+    <Option type="QString" name="preset_color_3" value="237,111,0,255"/>
+    <Option type="QString" name="preset_color_4" value="247,146,30,255"/>
+    <Option type="QString" name="preset_color_5" value="253,177,110,255"/>
+    <Option type="QString" name="preset_color_6" value="255,205,161,255"/>
+    <Option type="QString" name="preset_color_7" value="255,229,204,255"/>
+    <Option type="QString" name="preset_color_8" value="254,245,236,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="YlGn" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="0,69,51,255"/>
+    <Option type="QString" name="preset_color_1" value="0,106,72,255"/>
+    <Option type="QString" name="preset_color_2" value="39,142,87,255"/>
+    <Option type="QString" name="preset_color_3" value="77,175,94,255"/>
+    <Option type="QString" name="preset_color_4" value="133,200,118,255"/>
+    <Option type="QString" name="preset_color_5" value="181,220,152,255"/>
+    <Option type="QString" name="preset_color_6" value="216,237,183,255"/>
+    <Option type="QString" name="preset_color_7" value="241,248,210,255"/>
+    <Option type="QString" name="preset_color_8" value="254,254,227,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="YlGnBu" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="38,24,95,255"/>
+    <Option type="QString" name="preset_color_1" value="0,76,144,255"/>
+    <Option type="QString" name="preset_color_2" value="0,126,179,255"/>
+    <Option type="QString" name="preset_color_3" value="0,160,174,255"/>
+    <Option type="QString" name="preset_color_4" value="24,189,176,255"/>
+    <Option type="QString" name="preset_color_5" value="133,213,183,255"/>
+    <Option type="QString" name="preset_color_6" value="188,233,197,255"/>
+    <Option type="QString" name="preset_color_7" value="227,248,212,255"/>
+    <Option type="QString" name="preset_color_8" value="252,255,221,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Reds" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="109,0,38,255"/>
+    <Option type="QString" name="preset_color_1" value="156,0,50,255"/>
+    <Option type="QString" name="preset_color_2" value="204,26,54,255"/>
+    <Option type="QString" name="preset_color_3" value="243,65,58,255"/>
+    <Option type="QString" name="preset_color_4" value="255,117,95,255"/>
+    <Option type="QString" name="preset_color_5" value="255,158,134,255"/>
+    <Option type="QString" name="preset_color_6" value="255,193,173,255"/>
+    <Option type="QString" name="preset_color_7" value="255,223,211,255"/>
+    <Option type="QString" name="preset_color_8" value="252,245,242,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="RdPu" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="73,0,98,255"/>
+    <Option type="QString" name="preset_color_1" value="118,6,125,255"/>
+    <Option type="QString" name="preset_color_2" value="170,28,151,255"/>
+    <Option type="QString" name="preset_color_3" value="219,54,169,255"/>
+    <Option type="QString" name="preset_color_4" value="237,112,169,255"/>
+    <Option type="QString" name="preset_color_5" value="250,155,176,255"/>
+    <Option type="QString" name="preset_color_6" value="255,192,192,255"/>
+    <Option type="QString" name="preset_color_7" value="255,223,215,255"/>
+    <Option type="QString" name="preset_color_8" value="252,245,242,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="PuRd" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="97,19,0,255"/>
+    <Option type="QString" name="preset_color_1" value="153,0,40,255"/>
+    <Option type="QString" name="preset_color_2" value="213,0,105,255"/>
+    <Option type="QString" name="preset_color_3" value="222,36,158,255"/>
+    <Option type="QString" name="preset_color_4" value="219,106,192,255"/>
+    <Option type="QString" name="preset_color_5" value="214,153,214,255"/>
+    <Option type="QString" name="preset_color_6" value="215,191,227,255"/>
+    <Option type="QString" name="preset_color_7" value="227,222,238,255"/>
+    <Option type="QString" name="preset_color_8" value="246,246,252,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Purples" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="61,23,120,255"/>
+    <Option type="QString" name="preset_color_1" value="88,58,153,255"/>
+    <Option type="QString" name="preset_color_2" value="113,93,170,255"/>
+    <Option type="QString" name="preset_color_3" value="139,126,187,255"/>
+    <Option type="QString" name="preset_color_4" value="166,157,204,255"/>
+    <Option type="QString" name="preset_color_5" value="191,186,221,255"/>
+    <Option type="QString" name="preset_color_6" value="216,212,236,255"/>
+    <Option type="QString" name="preset_color_7" value="237,236,249,255"/>
+    <Option type="QString" name="preset_color_8" value="252,251,255,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="PuBuGn" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="0,69,51,255"/>
+    <Option type="QString" name="preset_color_1" value="0,100,89,255"/>
+    <Option type="QString" name="preset_color_2" value="0,130,139,255"/>
+    <Option type="QString" name="preset_color_3" value="0,150,184,255"/>
+    <Option type="QString" name="preset_color_4" value="118,166,208,255"/>
+    <Option type="QString" name="preset_color_5" value="177,184,223,255"/>
+    <Option type="QString" name="preset_color_6" value="215,206,233,255"/>
+    <Option type="QString" name="preset_color_7" value="240,228,242,255"/>
+    <Option type="QString" name="preset_color_8" value="255,247,253,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="PuBu" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="14,63,92,255"/>
+    <Option type="QString" name="preset_color_1" value="5,89,135,255"/>
+    <Option type="QString" name="preset_color_2" value="17,115,178,255"/>
+    <Option type="QString" name="preset_color_3" value="92,138,194,255"/>
+    <Option type="QString" name="preset_color_4" value="137,162,206,255"/>
+    <Option type="QString" name="preset_color_5" value="173,186,218,255"/>
+    <Option type="QString" name="preset_color_6" value="203,210,231,255"/>
+    <Option type="QString" name="preset_color_7" value="229,232,243,255"/>
+    <Option type="QString" name="preset_color_8" value="248,249,255,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Greens" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="0,70,22,255"/>
+    <Option type="QString" name="preset_color_1" value="22,104,43,255"/>
+    <Option type="QString" name="preset_color_2" value="48,137,59,255"/>
+    <Option type="QString" name="preset_color_3" value="80,168,79,255"/>
+    <Option type="QString" name="preset_color_4" value="129,192,122,255"/>
+    <Option type="QString" name="preset_color_5" value="168,214,159,255"/>
+    <Option type="QString" name="preset_color_6" value="202,232,193,255"/>
+    <Option type="QString" name="preset_color_7" value="228,245,222,255"/>
+    <Option type="QString" name="preset_color_8" value="246,251,244,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="BuGn" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="27,68,20,255"/>
+    <Option type="QString" name="preset_color_1" value="23,106,49,255"/>
+    <Option type="QString" name="preset_color_2" value="0,144,82,255"/>
+    <Option type="QString" name="preset_color_3" value="50,173,130,255"/>
+    <Option type="QString" name="preset_color_4" value="112,197,172,255"/>
+    <Option type="QString" name="preset_color_5" value="160,218,205,255"/>
+    <Option type="QString" name="preset_color_6" value="198,234,229,255"/>
+    <Option type="QString" name="preset_color_7" value="227,245,245,255"/>
+    <Option type="QString" name="preset_color_8" value="242,251,252,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="GnBu" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="47,50,125,255"/>
+    <Option type="QString" name="preset_color_1" value="0,100,165,255"/>
+    <Option type="QString" name="preset_color_2" value="0,144,186,255"/>
+    <Option type="QString" name="preset_color_3" value="0,177,188,255"/>
+    <Option type="QString" name="preset_color_4" value="84,202,190,255"/>
+    <Option type="QString" name="preset_color_5" value="152,222,196,255"/>
+    <Option type="QString" name="preset_color_6" value="199,236,208,255"/>
+    <Option type="QString" name="preset_color_7" value="230,245,223,255"/>
+    <Option type="QString" name="preset_color_8" value="245,248,234,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="BuPu" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="84,0,70,255"/>
+    <Option type="QString" name="preset_color_1" value="110,32,114,255"/>
+    <Option type="QString" name="preset_color_2" value="131,70,161,255"/>
+    <Option type="QString" name="preset_color_3" value="134,116,184,255"/>
+    <Option type="QString" name="preset_color_4" value="144,153,202,255"/>
+    <Option type="QString" name="preset_color_5" value="163,186,217,255"/>
+    <Option type="QString" name="preset_color_6" value="190,214,230,255"/>
+    <Option type="QString" name="preset_color_7" value="219,236,243,255"/>
+    <Option type="QString" name="preset_color_8" value="242,251,252,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Blues" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="39,56,113,255"/>
+    <Option type="QString" name="preset_color_1" value="48,85,150,255"/>
+    <Option type="QString" name="preset_color_2" value="53,115,185,255"/>
+    <Option type="QString" name="preset_color_3" value="92,144,198,255"/>
+    <Option type="QString" name="preset_color_4" value="127,171,211,255"/>
+    <Option type="QString" name="preset_color_5" value="161,196,224,255"/>
+    <Option type="QString" name="preset_color_6" value="193,219,236,255"/>
+    <Option type="QString" name="preset_color_7" value="222,238,247,255"/>
+    <Option type="QString" name="preset_color_8" value="244,250,254,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Lajolla" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="252,255,201,255"/>
+    <Option type="QString" name="preset_color_1" value="240,226,152,255"/>
+    <Option type="QString" name="preset_color_2" value="232,193,103,255"/>
+    <Option type="QString" name="preset_color_3" value="224,157,52,255"/>
+    <Option type="QString" name="preset_color_4" value="214,117,0,255"/>
+    <Option type="QString" name="preset_color_5" value="183,84,55,255"/>
+    <Option type="QString" name="preset_color_6" value="145,54,64,255"/>
+    <Option type="QString" name="preset_color_7" value="99,28,55,255"/>
+    <Option type="QString" name="preset_color_8" value="29,11,20,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Turku" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="255,233,234,255"/>
+    <Option type="QString" name="preset_color_1" value="255,201,190,255"/>
+    <Option type="QString" name="preset_color_2" value="234,173,137,255"/>
+    <Option type="QString" name="preset_color_3" value="188,153,114,255"/>
+    <Option type="QString" name="preset_color_4" value="146,130,97,255"/>
+    <Option type="QString" name="preset_color_5" value="108,104,82,255"/>
+    <Option type="QString" name="preset_color_6" value="75,76,64,255"/>
+    <Option type="QString" name="preset_color_7" value="44,46,42,255"/>
+    <Option type="QString" name="preset_color_8" value="4,4,4,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Hawaii" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="139,0,105,255"/>
+    <Option type="QString" name="preset_color_1" value="157,48,81,255"/>
+    <Option type="QString" name="preset_color_2" value="167,85,41,255"/>
+    <Option type="QString" name="preset_color_3" value="167,119,0,255"/>
+    <Option type="QString" name="preset_color_4" value="154,152,0,255"/>
+    <Option type="QString" name="preset_color_5" value="128,183,77,255"/>
+    <Option type="QString" name="preset_color_6" value="93,210,145,255"/>
+    <Option type="QString" name="preset_color_7" value="85,233,207,255"/>
+    <Option type="QString" name="preset_color_8" value="176,244,250,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Batlow" tags="Sequential (multi-hue)">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="32,17,88,255"/>
+    <Option type="QString" name="preset_color_1" value="0,62,95,255"/>
+    <Option type="QString" name="preset_color_2" value="0,94,94,255"/>
+    <Option type="QString" name="preset_color_3" value="0,120,76,255"/>
+    <Option type="QString" name="preset_color_4" value="87,139,33,255"/>
+    <Option type="QString" name="preset_color_5" value="168,152,0,255"/>
+    <Option type="QString" name="preset_color_6" value="232,158,107,255"/>
+    <Option type="QString" name="preset_color_7" value="255,173,193,255"/>
+    <Option type="QString" name="preset_color_8" value="255,206,244,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Blue-Red" tags="Diverging">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="2,63,165,255"/>
+    <Option type="QString" name="preset_color_1" value="106,118,178,255"/>
+    <Option type="QString" name="preset_color_2" value="161,166,200,255"/>
+    <Option type="QString" name="preset_color_3" value="203,205,217,255"/>
+    <Option type="QString" name="preset_color_4" value="226,226,226,255"/>
+    <Option type="QString" name="preset_color_5" value="219,201,204,255"/>
+    <Option type="QString" name="preset_color_6" value="202,156,164,255"/>
+    <Option type="QString" name="preset_color_7" value="177,98,115,255"/>
+    <Option type="QString" name="preset_color_8" value="142,6,59,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Blue-Red 2" tags="Diverging">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="74,111,227,255"/>
+    <Option type="QString" name="preset_color_1" value="120,140,225,255"/>
+    <Option type="QString" name="preset_color_2" value="157,168,226,255"/>
+    <Option type="QString" name="preset_color_3" value="192,197,227,255"/>
+    <Option type="QString" name="preset_color_4" value="226,226,226,255"/>
+    <Option type="QString" name="preset_color_5" value="230,188,195,255"/>
+    <Option type="QString" name="preset_color_6" value="228,149,165,255"/>
+    <Option type="QString" name="preset_color_7" value="221,109,135,255"/>
+    <Option type="QString" name="preset_color_8" value="211,63,106,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Blue-Red 3" tags="Diverging">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="0,47,112,255"/>
+    <Option type="QString" name="preset_color_1" value="49,103,187,255"/>
+    <Option type="QString" name="preset_color_2" value="135,159,219,255"/>
+    <Option type="QString" name="preset_color_3" value="200,210,241,255"/>
+    <Option type="QString" name="preset_color_4" value="246,246,246,255"/>
+    <Option type="QString" name="preset_color_5" value="244,200,200,255"/>
+    <Option type="QString" name="preset_color_6" value="218,138,139,255"/>
+    <Option type="QString" name="preset_color_7" value="174,70,71,255"/>
+    <Option type="QString" name="preset_color_8" value="95,20,21,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Red-Green" tags="Diverging">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="132,24,89,255"/>
+    <Option type="QString" name="preset_color_1" value="208,81,150,255"/>
+    <Option type="QString" name="preset_color_2" value="243,152,196,255"/>
+    <Option type="QString" name="preset_color_3" value="255,208,232,255"/>
+    <Option type="QString" name="preset_color_4" value="246,246,246,255"/>
+    <Option type="QString" name="preset_color_5" value="193,233,193,255"/>
+    <Option type="QString" name="preset_color_6" value="124,197,125,255"/>
+    <Option type="QString" name="preset_color_7" value="18,148,22,255"/>
+    <Option type="QString" name="preset_color_8" value="0,86,0,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Purple-Green" tags="Diverging">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="73,32,80,255"/>
+    <Option type="QString" name="preset_color_1" value="144,82,156,255"/>
+    <Option type="QString" name="preset_color_2" value="196,144,207,255"/>
+    <Option type="QString" name="preset_color_3" value="228,202,233,255"/>
+    <Option type="QString" name="preset_color_4" value="241,241,241,255"/>
+    <Option type="QString" name="preset_color_5" value="188,218,188,255"/>
+    <Option type="QString" name="preset_color_6" value="114,177,115,255"/>
+    <Option type="QString" name="preset_color_7" value="44,121,45,255"/>
+    <Option type="QString" name="preset_color_8" value="2,57,3,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Purple-Brown" tags="Diverging">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="49,42,86,255"/>
+    <Option type="QString" name="preset_color_1" value="102,92,158,255"/>
+    <Option type="QString" name="preset_color_2" value="156,146,223,255"/>
+    <Option type="QString" name="preset_color_3" value="208,202,248,255"/>
+    <Option type="QString" name="preset_color_4" value="249,249,249,255"/>
+    <Option type="QString" name="preset_color_5" value="241,199,174,255"/>
+    <Option type="QString" name="preset_color_6" value="205,141,90,255"/>
+    <Option type="QString" name="preset_color_7" value="141,89,40,255"/>
+    <Option type="QString" name="preset_color_8" value="73,41,0,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Green-Brown" tags="Diverging">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="0,75,64,255"/>
+    <Option type="QString" name="preset_color_1" value="0,137,123,255"/>
+    <Option type="QString" name="preset_color_2" value="46,190,176,255"/>
+    <Option type="QString" name="preset_color_3" value="169,228,220,255"/>
+    <Option type="QString" name="preset_color_4" value="246,246,246,255"/>
+    <Option type="QString" name="preset_color_5" value="238,213,184,255"/>
+    <Option type="QString" name="preset_color_6" value="203,164,108,255"/>
+    <Option type="QString" name="preset_color_7" value="150,109,18,255"/>
+    <Option type="QString" name="preset_color_8" value="83,54,0,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Blue-Yellow 2" tags="Diverging">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="79,83,183,255"/>
+    <Option type="QString" name="preset_color_1" value="126,128,196,255"/>
+    <Option type="QString" name="preset_color_2" value="170,171,213,255"/>
+    <Option type="QString" name="preset_color_3" value="209,210,229,255"/>
+    <Option type="QString" name="preset_color_4" value="241,241,241,255"/>
+    <Option type="QString" name="preset_color_5" value="214,212,193,255"/>
+    <Option type="QString" name="preset_color_6" value="181,175,128,255"/>
+    <Option type="QString" name="preset_color_7" value="145,137,35,255"/>
+    <Option type="QString" name="preset_color_8" value="107,97,0,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Blue-Yellow 3" tags="Diverging">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="159,162,255,255"/>
+    <Option type="QString" name="preset_color_1" value="192,194,255,255"/>
+    <Option type="QString" name="preset_color_2" value="215,217,255,255"/>
+    <Option type="QString" name="preset_color_3" value="231,232,255,255"/>
+    <Option type="QString" name="preset_color_4" value="241,241,241,255"/>
+    <Option type="QString" name="preset_color_5" value="245,238,184,255"/>
+    <Option type="QString" name="preset_color_6" value="234,225,145,255"/>
+    <Option type="QString" name="preset_color_7" value="215,204,95,255"/>
+    <Option type="QString" name="preset_color_8" value="186,174,0,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Green-Orange" tags="Diverging">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="17,198,56,255"/>
+    <Option type="QString" name="preset_color_1" value="102,206,112,255"/>
+    <Option type="QString" name="preset_color_2" value="149,214,154,255"/>
+    <Option type="QString" name="preset_color_3" value="189,221,191,255"/>
+    <Option type="QString" name="preset_color_4" value="226,226,226,255"/>
+    <Option type="QString" name="preset_color_5" value="235,207,189,255"/>
+    <Option type="QString" name="preset_color_6" value="240,188,149,255"/>
+    <Option type="QString" name="preset_color_7" value="241,170,102,255"/>
+    <Option type="QString" name="preset_color_8" value="239,151,8,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Cyan-Magenta" tags="Diverging">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="15,207,192,255"/>
+    <Option type="QString" name="preset_color_1" value="137,219,208,255"/>
+    <Option type="QString" name="preset_color_2" value="188,229,223,255"/>
+    <Option type="QString" name="preset_color_3" value="223,236,234,255"/>
+    <Option type="QString" name="preset_color_4" value="241,241,241,255"/>
+    <Option type="QString" name="preset_color_5" value="242,230,237,255"/>
+    <Option type="QString" name="preset_color_6" value="245,211,231,255"/>
+    <Option type="QString" name="preset_color_7" value="246,187,222,255"/>
+    <Option type="QString" name="preset_color_8" value="247,156,212,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Tropic" tags="Diverging">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="0,155,159,255"/>
+    <Option type="QString" name="preset_color_1" value="0,176,179,255"/>
+    <Option type="QString" name="preset_color_2" value="125,197,199,255"/>
+    <Option type="QString" name="preset_color_3" value="186,218,220,255"/>
+    <Option type="QString" name="preset_color_4" value="241,241,241,255"/>
+    <Option type="QString" name="preset_color_5" value="232,205,222,255"/>
+    <Option type="QString" name="preset_color_6" value="222,169,204,255"/>
+    <Option type="QString" name="preset_color_7" value="211,133,187,255"/>
+    <Option type="QString" name="preset_color_8" value="199,93,170,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Broc" tags="Diverging">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="0,43,75,255"/>
+    <Option type="QString" name="preset_color_1" value="5,85,124,255"/>
+    <Option type="QString" name="preset_color_2" value="100,131,160,255"/>
+    <Option type="QString" name="preset_color_3" value="169,184,200,255"/>
+    <Option type="QString" name="preset_color_4" value="249,249,249,255"/>
+    <Option type="QString" name="preset_color_5" value="184,184,161,255"/>
+    <Option type="QString" name="preset_color_6" value="131,130,84,255"/>
+    <Option type="QString" name="preset_color_7" value="84,83,0,255"/>
+    <Option type="QString" name="preset_color_8" value="41,40,0,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Cork" tags="Diverging">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="0,41,77,255"/>
+    <Option type="QString" name="preset_color_1" value="30,90,137,255"/>
+    <Option type="QString" name="preset_color_2" value="106,141,183,255"/>
+    <Option type="QString" name="preset_color_3" value="177,193,216,255"/>
+    <Option type="QString" name="preset_color_4" value="241,241,241,255"/>
+    <Option type="QString" name="preset_color_5" value="173,199,170,255"/>
+    <Option type="QString" name="preset_color_6" value="101,151,96,255"/>
+    <Option type="QString" name="preset_color_7" value="36,99,24,255"/>
+    <Option type="QString" name="preset_color_8" value="0,47,0,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Vik" tags="Diverging">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="0,46,96,255"/>
+    <Option type="QString" name="preset_color_1" value="0,94,149,255"/>
+    <Option type="QString" name="preset_color_2" value="90,144,187,255"/>
+    <Option type="QString" name="preset_color_3" value="170,194,221,255"/>
+    <Option type="QString" name="preset_color_4" value="241,241,241,255"/>
+    <Option type="QString" name="preset_color_5" value="211,188,161,255"/>
+    <Option type="QString" name="preset_color_6" value="169,133,77,255"/>
+    <Option type="QString" name="preset_color_7" value="120,79,0,255"/>
+    <Option type="QString" name="preset_color_8" value="62,32,0,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Berlin" tags="Diverging">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="127,191,245,255"/>
+    <Option type="QString" name="preset_color_1" value="0,128,189,255"/>
+    <Option type="QString" name="preset_color_2" value="0,75,115,255"/>
+    <Option type="QString" name="preset_color_3" value="0,38,60,255"/>
+    <Option type="QString" name="preset_color_4" value="17,17,17,255"/>
+    <Option type="QString" name="preset_color_5" value="59,25,23,255"/>
+    <Option type="QString" name="preset_color_6" value="113,52,48,255"/>
+    <Option type="QString" name="preset_color_7" value="186,92,86,255"/>
+    <Option type="QString" name="preset_color_8" value="248,162,158,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Lisbon" tags="Diverging">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="226,252,255,255"/>
+    <Option type="QString" name="preset_color_1" value="147,191,232,255"/>
+    <Option type="QString" name="preset_color_2" value="101,130,157,255"/>
+    <Option type="QString" name="preset_color_3" value="59,73,88,255"/>
+    <Option type="QString" name="preset_color_4" value="24,24,24,255"/>
+    <Option type="QString" name="preset_color_5" value="73,73,51,255"/>
+    <Option type="QString" name="preset_color_6" value="130,129,86,255"/>
+    <Option type="QString" name="preset_color_7" value="191,189,125,255"/>
+    <Option type="QString" name="preset_color_8" value="252,252,211,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+<colorramp type="preset" name="Tofino" tags="Diverging">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="214,224,255,255"/>
+    <Option type="QString" name="preset_color_1" value="153,165,224,255"/>
+    <Option type="QString" name="preset_color_2" value="102,110,154,255"/>
+    <Option type="QString" name="preset_color_3" value="55,61,88,255"/>
+    <Option type="QString" name="preset_color_4" value="17,17,17,255"/>
+    <Option type="QString" name="preset_color_5" value="45,68,36,255"/>
+    <Option type="QString" name="preset_color_6" value="85,122,71,255"/>
+    <Option type="QString" name="preset_color_7" value="130,181,111,255"/>
+    <Option type="QString" name="preset_color_8" value="194,239,180,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+</colorramps>
+<textformats/>
+<labelsettings/>
+<legendpatchshapes/>
+<symbols3d/>
+</qgis_style>
