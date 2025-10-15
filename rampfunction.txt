@@ -1,0 +1,4 @@
+if (container.querySelectorAll('.ramp-group').length >= 1000) {
+    alert("Maximum 1000 ramps allowed!");
+    return;
+}
