@@ -1,0 +1,7 @@
+requests
+beautifulsoup4
+xarray
+dask
+rioxarray
+netCDF4
+gdal
