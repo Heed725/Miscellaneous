@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Management Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                50: '#f0f9ff',
+                100: '#e0f2fe',
+                200: '#bae6fd',
+                300: '#7dd3fc',
+                400: '#38bdf8',
+                500: '#0ea5e9',
+                600: '#0284c7',
+                700: '#0369a1',
+                800: '#075985',
+                900: '#0c4a6e',
+              },
+              secondary: {
+                50: '#f5f3ff',
+                100: '#ede9fe',
+                200: '#ddd6fe',
+                300: '#c4b5fd',
+                400: '#a78bfa',
+                500: '#8b5cf6',
+                600: '#7c3aed',
+                700: '#6d28d9',
+                800: '#5b21b6',
+                900: '#4c1d95',
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Theme Toggle Button -->
+    <div class="fixed top-4 right-4 z-50">
+        <button id="theme-toggle" class="p-2 rounded-full bg-primary-100 dark:bg-gray-700 text-primary-600 dark:text-primary-400 hover:bg-primary-200 dark:hover:bg-gray-600 transition-colors">
+            <i id="theme-icon" data-feather="sun"></i>
+        </button>
+    </div>
+
+    <!-- Rest of your content -->
+    <div class="min-h-screen flex items-center justify-center px-4">
+        <div class="w-full max-w-md bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 space-y-6">
+            <div class="text-center">
+                <div class="flex items-center justify-center gap-3 mb-2">
+                    <i data-feather="home" class="w-10 h-10 text-primary-600"></i>
+                    <h1 class="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+                        Hostel Haven
+                    </h1>
+                </div>
+                <p class="text-gray-500 dark:text-gray-400">
+                    Welcome to our hostel management system
+                </p>
+            </div>
+            
+            <div class="space-y-4">
+                <div class="p-4 rounded-lg bg-primary-50 dark:bg-primary-900/20 border border-primary-200 dark:border-primary-800">
+                    <h3 class="font-medium text-primary-800 dark:text-primary-200">Theme Demo</h3>
+                    <p class="text-sm text-primary-600 dark:text-primary-400 mt-1">
+                        Click the button in the top right to toggle between light and dark mode.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-3 rounded-lg bg-primary-500 text-white text-center font-medium">
+                        Primary
+                    </div>
+                    <div class="p-3 rounded-lg bg-secondary-500 text-white text-center font-medium">
+                        Secondary
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>
