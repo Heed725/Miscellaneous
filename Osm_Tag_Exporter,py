@@ -1,0 +1,126 @@
+import osmium
+import requests
+import sys
+import io
+import time
+
+# Fix Windows console encoding issues
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+
+class TagExtractor(osmium.SimpleHandler):
+    def __init__(self, bbox):
+        super().__init__()
+        self.tags = set()
+        self.bbox = bbox  # (min_lon, min_lat, max_lon, max_lat)
+    
+    def node(self, n):
+        if self.in_bbox(n.location.lon, n.location.lat):
+            self.extract_tags(n)
+    
+    def way(self, w):
+        # For ways, check if any node is in bbox (simplified)
+        self.extract_tags(w)
+    
+    def relation(self, r):
+        self.extract_tags(r)
+    
+    def extract_tags(self, obj):
+        for tag in obj.tags:
+            self.tags.add(f"{tag.k}={tag.v}")
+    
+    def in_bbox(self, lon, lat):
+        return (self.bbox[0] <= lon <= self.bbox[2] and 
+                self.bbox[1] <= lat <= self.bbox[3])
+
+def download_osm_data(bbox, output_file="dar_es_salaam.osm"):
+    """Download OSM data from Overpass API for the given bbox"""
+    min_lon, min_lat, max_lon, max_lat = bbox
+    
+    overpass_query = f"""
+    [bbox:{min_lat},{min_lon},{max_lat},{max_lon}][out:xml][timeout:90];
+    (
+      node;
+      way;
+      relation;
+    );
+    out body;
+    >;
+    out skel qt;
+    """
+    
+    print(f"Downloading OSM data for bbox: {bbox}")
+    print(f"Area: Dar es Salaam (tiny area)")
+    
+    # Try multiple Overpass API servers
+    overpass_servers = [
+        "https://overpass-api.de/api/interpreter",
+        "https://overpass.kumi.systems/api/interpreter",
+        "https://overpass.openstreetmap.ru/api/interpreter"
+    ]
+    
+    for server in overpass_servers:
+        print(f"\nTrying server: {server}")
+        try:
+            response = requests.post(
+                server, 
+                data=overpass_query, 
+                timeout=90,
+                headers={'User-Agent': 'OSM Tag Extractor Script'}
+            )
+            response.raise_for_status()
+            
+            with open(output_file, 'w', encoding='utf-8') as f:
+                f.write(response.text)
+            
+            print(f"Downloaded data to {output_file}")
+            return output_file
+        
+        except requests.exceptions.RequestException as e:
+            print(f"Error with {server}: {e}")
+            if server != overpass_servers[-1]:
+                print("Retrying with different server...")
+                time.sleep(2)
+            continue
+    
+    print("\nAll servers failed. You can manually download data from:")
+    print(f"https://www.openstreetmap.org/export#map=15/{(min_lat+max_lat)/2}/{(min_lon+max_lon)/2}")
+    print("Save as 'dar_es_salaam.osm' and run the script again.")
+    sys.exit(1)
+
+def extract_unique_tags(osm_file, bbox):
+    """Extract unique tags from OSM file within bbox"""
+    print(f"\nExtracting unique tags from {osm_file}...")
+    
+    handler = TagExtractor(bbox)
+    handler.apply_file(osm_file)
+    
+    print(f"\n{'='*60}")
+    print(f"UNIQUE TAGS FOUND: {len(handler.tags)}")
+    print(f"{'='*60}\n")
+    
+    for tag in sorted(handler.tags):
+        print(tag)
+    
+    return handler.tags
+
+if __name__ == "__main__":
+    # Dar es Salaam tiny area (city center near Kivukoni Front)
+    # You can adjust this bbox to any area in Dar es Salaam
+    bbox = (39.2800, -6.8200, 39.2900, -6.8100)
+    
+    print("=" * 60)
+    print("OSM BBOX TAG EXTRACTOR - DAR ES SALAAM")
+    print("=" * 60)
+    print(f"BBox coordinates: {bbox}")
+    print(f"(min_lon, min_lat, max_lon, max_lat)")
+    print()
+    
+    # Download OSM data
+    osm_file = download_osm_data(bbox)
+    
+    # Extract unique tags
+    tags = extract_unique_tags(osm_file, bbox)
+    
+    print(f"\n{'='*60}")
+    print(f"Total unique tag combinations: {len(tags)}")
+    print(f"{'='*60}")
