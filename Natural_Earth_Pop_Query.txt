@@ -1,0 +1,2 @@
+"NAME" IN ('Dar es Salaam', 'Dodoma')
+"NAME" NOT IN ('Dar es Salaam', 'Dodoma')
