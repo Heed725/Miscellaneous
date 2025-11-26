@@ -9,6 +9,7 @@ from qgis.core import (
     QgsProcessingAlgorithm,
     QgsProcessingParameterString,
     QgsProcessingParameterCrs,
+    QgsProcessingParameterEnum,
     QgsProcessingParameterFeatureSink,
     QgsFeature,
     QgsGeometry,
@@ -20,6 +21,7 @@ from qgis.core import (
 class BBoxToPolygonAlgorithm(QgsProcessingAlgorithm):
     
     BBOX = 'BBOX'
+    FORMAT = 'FORMAT'
     CRS = 'CRS'
     OUTPUT = 'OUTPUT'
     
@@ -44,13 +46,13 @@ class BBoxToPolygonAlgorithm(QgsProcessingAlgorithm):
     def shortHelpString(self):
         return self.tr(
             "Creates a polygon from bounding box coordinates.\n\n"
-            "Input format: ymin,xmin,ymax,xmax\n"
-            "Example: 38.854980,-7.079088,39.799804,-6.446318\n\n"
-            "This represents:\n"
-            "- ymin (bottom latitude): 38.854980\n"
-            "- xmin (left longitude): -7.079088\n"
-            "- ymax (top latitude): 39.799804\n"
-            "- xmax (right longitude): -6.446318"
+            "Select your coordinate format:\n"
+            "• Lat/Lng: minLat,minLng,maxLat,maxLng\n"
+            "• Lng/Lat: minLng,minLat,maxLng,maxLat\n\n"
+            "Example for Dar es Salaam:\n"
+            "Lat/Lng format: -7.00,39.10,-6.65,39.40\n"
+            "Lng/Lat format: 39.10,-7.00,39.40,-6.65\n\n"
+            "Both formats create the same polygon."
         )
     
     def initAlgorithm(self, config=None):
@@ -58,8 +60,20 @@ class BBoxToPolygonAlgorithm(QgsProcessingAlgorithm):
         self.addParameter(
             QgsProcessingParameterString(
                 self.BBOX,
-                self.tr('Bounding Box Coordinates (ymin,xmin,ymax,xmax)'),
-                defaultValue='38.854980,-7.079088,39.799804,-6.446318'
+                self.tr('Bounding Box Coordinates'),
+                defaultValue='-7.00,39.10,-6.65,39.40'
+            )
+        )
+        
+        self.addParameter(
+            QgsProcessingParameterEnum(
+                self.FORMAT,
+                self.tr('Coordinate Format'),
+                options=[
+                    'Lat/Lng (minLat,minLng,maxLat,maxLng)',
+                    'Lng/Lat (minLng,minLat,maxLng,maxLat)'
+                ],
+                defaultValue=0
             )
         )
         
@@ -82,26 +96,44 @@ class BBoxToPolygonAlgorithm(QgsProcessingAlgorithm):
         
         # Get parameters
         bbox_string = self.parameterAsString(parameters, self.BBOX, context)
+        coord_format = self.parameterAsEnum(parameters, self.FORMAT, context)
         crs = self.parameterAsCrs(parameters, self.CRS, context)
         
-        # Parse bounding box coordinates
+        # Parse coordinates
         try:
             coords = [float(x.strip()) for x in bbox_string.split(',')]
             if len(coords) != 4:
                 raise ValueError("Must provide exactly 4 coordinates")
-            ymin, xmin, ymax, xmax = coords
         except Exception as e:
             raise ValueError(f"Invalid bounding box format: {str(e)}")
         
-        # Validate coordinates
-        if ymin >= ymax:
-            raise ValueError("ymin must be less than ymax")
-        if xmin >= xmax:
-            raise ValueError("xmin must be less than xmax")
+        # Interpret coordinates based on selected format
+        if coord_format == 0:  # Lat/Lng format
+            min_lat, min_lng, max_lat, max_lng = coords
+            feedback.pushInfo("Interpreting as: Lat/Lng format")
+            feedback.pushInfo(f"  Min Latitude: {min_lat}")
+            feedback.pushInfo(f"  Min Longitude: {min_lng}")
+            feedback.pushInfo(f"  Max Latitude: {max_lat}")
+            feedback.pushInfo(f"  Max Longitude: {max_lng}")
+        else:  # Lng/Lat format
+            min_lng, min_lat, max_lng, max_lat = coords
+            feedback.pushInfo("Interpreting as: Lng/Lat format")
+            feedback.pushInfo(f"  Min Longitude: {min_lng}")
+            feedback.pushInfo(f"  Min Latitude: {min_lat}")
+            feedback.pushInfo(f"  Max Longitude: {max_lng}")
+            feedback.pushInfo(f"  Max Latitude: {max_lat}")
         
-        feedback.pushInfo(f"Creating polygon with bounds:")
-        feedback.pushInfo(f"  X: {xmin} to {xmax}")
-        feedback.pushInfo(f"  Y: {ymin} to {ymax}")
+        # Validate coordinates
+        if min_lat >= max_lat:
+            raise ValueError(f"Min latitude ({min_lat}) must be less than max latitude ({max_lat})")
+        if min_lng >= max_lng:
+            raise ValueError(f"Min longitude ({min_lng}) must be less than max longitude ({max_lng})")
+        
+        # Validate reasonable lat/lng ranges
+        if not (-90 <= min_lat <= 90 and -90 <= max_lat <= 90):
+            raise ValueError("Latitude values must be between -90 and 90")
+        if not (-180 <= min_lng <= 180 and -180 <= max_lng <= 180):
+            raise ValueError("Longitude values must be between -180 and 180")
         
         # Create output sink
         fields = QgsFields()
@@ -118,12 +150,13 @@ class BBoxToPolygonAlgorithm(QgsProcessingAlgorithm):
             raise ValueError("Could not create output layer")
         
         # Create polygon from bounding box
+        # Note: QgsPointXY takes (x, y) which is (longitude, latitude)
         points = [
-            QgsPointXY(xmin, ymin),  # Bottom-left
-            QgsPointXY(xmax, ymin),  # Bottom-right
-            QgsPointXY(xmax, ymax),  # Top-right
-            QgsPointXY(xmin, ymax),  # Top-left
-            QgsPointXY(xmin, ymin)   # Close polygon
+            QgsPointXY(min_lng, min_lat),  # Bottom-left
+            QgsPointXY(max_lng, min_lat),  # Bottom-right
+            QgsPointXY(max_lng, max_lat),  # Top-right
+            QgsPointXY(min_lng, max_lat),  # Top-left
+            QgsPointXY(min_lng, min_lat)   # Close polygon
         ]
         
         # Create feature with polygon geometry
@@ -133,6 +166,6 @@ class BBoxToPolygonAlgorithm(QgsProcessingAlgorithm):
         # Add feature to sink
         sink.addFeature(feature)
         
-        feedback.pushInfo("Polygon created successfully!")
+        feedback.pushInfo("✓ Polygon created successfully!")
         
         return {self.OUTPUT: dest_id}
