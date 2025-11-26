@@ -1,86 +1,138 @@
+"""
+BBox to Polygon Shapefile
+Creates a polygon shapefile from bounding box coordinates
+"""
+
+from qgis.PyQt.QtCore import QCoreApplication
 from qgis.core import (
-    QgsVectorLayer,
+    QgsProcessing,
+    QgsProcessingAlgorithm,
+    QgsProcessingParameterString,
+    QgsProcessingParameterCrs,
+    QgsProcessingParameterFeatureSink,
     QgsFeature,
     QgsGeometry,
     QgsPointXY,
-    QgsCoordinateReferenceSystem,
-    QgsVectorFileWriter,
-    QgsProject
+    QgsFields,
+    QgsWkbTypes
 )
 
-def create_polygon_from_bbox(bbox_string, output_path, crs_code="EPSG:4326"):
-    """
-    Create a polygon shapefile from a bounding box string.
+class BBoxToPolygonAlgorithm(QgsProcessingAlgorithm):
     
-    Parameters:
-    bbox_string (str): Bounding box as "ymin,xmin,ymax,xmax" or "xmin,ymin,xmax,ymax"
-    output_path (str): Full path for output shapefile (e.g., '/path/to/output.shp')
-    crs_code (str): Coordinate reference system (default: "EPSG:4326" for WGS84)
-    """
+    BBOX = 'BBOX'
+    CRS = 'CRS'
+    OUTPUT = 'OUTPUT'
     
-    # Parse the bbox string
-    coords = [float(x.strip()) for x in bbox_string.split(',')]
+    def tr(self, string):
+        return QCoreApplication.translate('Processing', string)
     
-    if len(coords) != 4:
-        raise ValueError("Bounding box must contain exactly 4 coordinates")
+    def createInstance(self):
+        return BBoxToPolygonAlgorithm()
     
-    # Assuming format: ymin, xmin, ymax, xmax (lat, lon, lat, lon)
-    ymin, xmin, ymax, xmax = coords
+    def name(self):
+        return 'bboxtopolygon'
     
-    # Create memory layer
-    crs = QgsCoordinateReferenceSystem(crs_code)
-    layer = QgsVectorLayer(f"Polygon?crs={crs_code}", "bbox_polygon", "memory")
-    provider = layer.dataProvider()
+    def displayName(self):
+        return self.tr('Create Polygon from BBox')
     
-    # Create polygon geometry from bbox coordinates
-    points = [
-        QgsPointXY(xmin, ymin),  # Bottom-left
-        QgsPointXY(xmax, ymin),  # Bottom-right
-        QgsPointXY(xmax, ymax),  # Top-right
-        QgsPointXY(xmin, ymax),  # Top-left
-        QgsPointXY(xmin, ymin)   # Close the polygon
-    ]
+    def group(self):
+        return self.tr('Vector creation')
     
-    # Create feature with polygon geometry
-    feature = QgsFeature()
-    feature.setGeometry(QgsGeometry.fromPolygonXY([points]))
+    def groupId(self):
+        return 'vectorcreation'
     
-    # Add feature to layer
-    provider.addFeatures([feature])
-    layer.updateExtents()
+    def shortHelpString(self):
+        return self.tr(
+            "Creates a polygon from bounding box coordinates.\n\n"
+            "Input format: ymin,xmin,ymax,xmax\n"
+            "Example: 38.854980,-7.079088,39.799804,-6.446318\n\n"
+            "This represents:\n"
+            "- ymin (bottom latitude): 38.854980\n"
+            "- xmin (left longitude): -7.079088\n"
+            "- ymax (top latitude): 39.799804\n"
+            "- xmax (right longitude): -6.446318"
+        )
     
-    # Save to shapefile
-    options = QgsVectorFileWriter.SaveVectorOptions()
-    options.driverName = "ESRI Shapefile"
-    options.fileEncoding = "UTF-8"
-    
-    error = QgsVectorFileWriter.writeAsVectorFormatV3(
-        layer,
-        output_path,
-        QgsProject.instance().transformContext(),
-        options
-    )
-    
-    if error[0] == QgsVectorFileWriter.NoError:
-        print(f"Shapefile created successfully: {output_path}")
+    def initAlgorithm(self, config=None):
         
-        # Load the layer into QGIS
-        output_layer = QgsVectorLayer(output_path, "BBox Polygon", "ogr")
-        if output_layer.isValid():
-            QgsProject.instance().addMapLayer(output_layer)
-            print("Layer added to QGIS project")
-        else:
-            print("Failed to load layer into QGIS")
-    else:
-        print(f"Error creating shapefile: {error}")
+        self.addParameter(
+            QgsProcessingParameterString(
+                self.BBOX,
+                self.tr('Bounding Box Coordinates (ymin,xmin,ymax,xmax)'),
+                defaultValue='38.854980,-7.079088,39.799804,-6.446318'
+            )
+        )
+        
+        self.addParameter(
+            QgsProcessingParameterCrs(
+                self.CRS,
+                self.tr('Coordinate Reference System'),
+                defaultValue='EPSG:4326'
+            )
+        )
+        
+        self.addParameter(
+            QgsProcessingParameterFeatureSink(
+                self.OUTPUT,
+                self.tr('Output Polygon')
+            )
+        )
     
-    return layer
-
-
-# Example usage:
-# Replace with your actual bbox coordinates and output path
-bbox = "38.854980,-7.079088,39.799804,-6.446318"
-output_shapefile = "/path/to/your/output/bbox_polygon.shp"
-
-# Create the polygon
-create_polygon_from_bbox(bbox, output_shapefile)
+    def processAlgorithm(self, parameters, context, feedback):
+        
+        # Get parameters
+        bbox_string = self.parameterAsString(parameters, self.BBOX, context)
+        crs = self.parameterAsCrs(parameters, self.CRS, context)
+        
+        # Parse bounding box coordinates
+        try:
+            coords = [float(x.strip()) for x in bbox_string.split(',')]
+            if len(coords) != 4:
+                raise ValueError("Must provide exactly 4 coordinates")
+            ymin, xmin, ymax, xmax = coords
+        except Exception as e:
+            raise ValueError(f"Invalid bounding box format: {str(e)}")
+        
+        # Validate coordinates
+        if ymin >= ymax:
+            raise ValueError("ymin must be less than ymax")
+        if xmin >= xmax:
+            raise ValueError("xmin must be less than xmax")
+        
+        feedback.pushInfo(f"Creating polygon with bounds:")
+        feedback.pushInfo(f"  X: {xmin} to {xmax}")
+        feedback.pushInfo(f"  Y: {ymin} to {ymax}")
+        
+        # Create output sink
+        fields = QgsFields()
+        (sink, dest_id) = self.parameterAsSink(
+            parameters,
+            self.OUTPUT,
+            context,
+            fields,
+            QgsWkbTypes.Polygon,
+            crs
+        )
+        
+        if sink is None:
+            raise ValueError("Could not create output layer")
+        
+        # Create polygon from bounding box
+        points = [
+            QgsPointXY(xmin, ymin),  # Bottom-left
+            QgsPointXY(xmax, ymin),  # Bottom-right
+            QgsPointXY(xmax, ymax),  # Top-right
+            QgsPointXY(xmin, ymax),  # Top-left
+            QgsPointXY(xmin, ymin)   # Close polygon
+        ]
+        
+        # Create feature with polygon geometry
+        feature = QgsFeature()
+        feature.setGeometry(QgsGeometry.fromPolygonXY([points]))
+        
+        # Add feature to sink
+        sink.addFeature(feature)
+        
+        feedback.pushInfo("Polygon created successfully!")
+        
+        return {self.OUTPUT: dest_id}
