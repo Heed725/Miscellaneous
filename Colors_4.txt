@@ -1,0 +1,24 @@
+🔵 BLUE (5 distinct colors)
+1. #0994FF
+2. #005BBA
+3. #00C4FF
+4. #1A3FFF
+5. #4AC2E8
+🟢 GREEN (5 distinct colors)
+1. #397D49
+2. #65B32E
+3. #1F8A3A
+4. #7FD19A
+5. #2A5F2D
+🟡 YELLOW (5 distinct colors)
+1. #DFC35A
+2. #E6A700
+3. #F7D267
+4. #C8A83C
+5. #FFEB5A
+🔴 RED (5 distinct colors)
+1. #C4281B
+2. #FF4C3B
+3. #A01313
+4. #E86A5A
+5. #8C1E1A
