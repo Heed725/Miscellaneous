@@ -1,0 +1,5 @@
+#F00000 - Dark Red
+#FFA500 - Orange
+#FFE700 - Yellow
+#5BA500 - Green
+#005900 - Dark Green
