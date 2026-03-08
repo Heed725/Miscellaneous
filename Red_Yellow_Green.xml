@@ -1,0 +1,20 @@
+<!DOCTYPE qgis_style>
+<qgis_style version="2">
+<symbols/>
+<colorramps>
+<colorramp type="preset" name="Red_Yellow_Green" tags="custom,ramp1">
+  <Option type="Map">
+    <Option type="QString" name="preset_color_0" value="240,0,0,255"/>
+    <Option type="QString" name="preset_color_1" value="255,165,0,255"/>
+    <Option type="QString" name="preset_color_2" value="255,231,0,255"/>
+    <Option type="QString" name="preset_color_3" value="91,165,0,255"/>
+    <Option type="QString" name="preset_color_4" value="0,89,0,255"/>
+    <Option type="QString" name="rampType" value="preset"/>
+  </Option>
+</colorramp>
+</colorramps>
+<textformats/>
+<labelsettings/>
+<legendpatchshapes/>
+<symbols3d/>
+</qgis_style>
