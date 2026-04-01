@@ -1,0 +1,72 @@
+------------------------------------------------------------------------------------------------------------------------
+                                                   Git commands 
+------------------------------------------------------------------------------------------------------------------------
+git stash                      // temporarily save uncommitted changes
+
+git pull                       // get latest changes from remote repository
+
+git add .                      // stage all changes
+
+git commit -m "your message"   // save changes locally with a message
+
+git push                       // send committed changes to remote repository
+
+-------------------------------------------------------------------------------------------------------------------------
+git log -1 --format=%cd        // shows exact date & time of last commit
+
+git log -1 --format="%cr"      // shows how long ago last commit was (e.g., 2 days ago)
+
+git log -1                     // shows full details of last commit (author, date, message)
+
+git log -1 -- path/to/file     // shows last commit that modified a specific file
+
+git log -1 --pretty=format:"%h - %an, %ar : %s"   // custom short info of last commit
+
+git fetch                      // updates local repo info from remote (no changes applied)
+
+git status                     // shows if your branch is ahead/behind or up to date
+
+git log --oneline --graph --decorate --all   // shows commit history in graph format
+--------------------------------------------------------------------------------------------------------------------------
+git stash pop                  // restore stashed changes and remove from stash
+
+git stash list                 // show all stashed changes
+
+git checkout -b new-branch     // create and switch to a new branch
+
+git branch                     // list all branches
+
+git switch branch-name         // switch to another branch (modern way)
+
+git merge branch-name          // merge another branch into current branch
+
+git rebase branch-name         // reapply commits on top of another branch (clean history)
+
+git reset --soft HEAD~1        // undo last commit but keep changes staged
+
+git reset --hard HEAD~1        // undo last commit and delete changes completely ⚠️
+
+git restore file.txt           // discard changes in a file
+
+git restore --staged file.txt  // unstage a file
+
+git diff                       // show changes not yet staged
+
+git diff --staged              // show staged changes
+
+git show                       // show details of last commit
+
+git remote -v                  // show remote repository URLs
+--------------------------------------------------------------------------------------------------------------------------------
+git clone <repo-url>           // download a repository from remote
+
+git tag                        // list tags
+
+git tag v1.0                   // create a tag
+
+git push origin v1.0           // push tag to remote
+
+git clean -fd                  // remove untracked files and folders ⚠️
+---------------------------------------------------------------------------------------------------------------------------------
+
+git blame file.txt             // show who changed each line in a file
