@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Circular Voronoi Legend for QGIS</title>
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+  }
+
+  body {
+    font-family: 'Barlow', 'Segoe UI', Arial, sans-serif;
+    color: #243e34;
+    font-weight: 400;
+  }
+
+  .legend {
+    width: 100%;
+    max-width: 380px;
+  }
+
+  .heading {
+    margin: 0 0 6px;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 28px;
+  }
+
+  .subtitle {
+    margin: 0 0 12px;
+    font-size: 13px;
+    line-height: 18px;
+    color: #65776f;
+  }
+
+  .diagram {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .diagram svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .diagram text {
+    font-family: 'Barlow', 'Segoe UI', Arial, sans-serif;
+    text-anchor: middle;
+  }
+
+  .cell {
+    stroke: #243e34;
+    stroke-opacity: 0.15;
+    stroke-width: 0.35;
+    stroke-linejoin: round;
+  }
+
+  .chart-label {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .chart-value {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .small-label {
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .small-value {
+    font-size: 11px;
+    font-weight: 400;
+  }
+
+  .caption {
+    margin: 5px 0 18px;
+    font-size: 12px;
+    line-height: 17px;
+    color: #65776f;
+    text-align: center;
+  }
+
+  .key {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  .key td {
+    padding: 7px 0;
+    vertical-align: middle;
+    border-bottom: 1px solid #e1e4d8;
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  .key tr:last-child td {
+    border-bottom: none;
+  }
+
+  .symbol-cell {
+    width: 25px;
+  }
+
+  .swatch {
+    display: block;
+    width: 13px;
+    height: 13px;
+  }
+
+  .name {
+    white-space: nowrap;
+  }
+
+  .percentage {
+    width: 75px;
+    text-align: right;
+    color: #65776f;
+    white-space: nowrap;
+  }
+
+  .note {
+    margin: 14px 0 0;
+    font-size: 11px;
+    line-height: 16px;
+    color: #65776f;
+  }
+</style>
+</head>
+
+<body>
+<div class="legend">
+
+  <h2 class="heading">Legend</h2>
+
+  <p class="subtitle">
+    Land cover · share of classified area
+  </p>
+
+  <div class="diagram">
+
+    <!--
+      Precomputed weighted Voronoi cells within a circle.
+      Cell areas approximately match the displayed percentages.
+
+      Snow/Ice uses a 0.005% plotting placeholder for <0.01%.
+      Values are static, not calculated from a QGIS layer.
+      Changing the percentages requires recalculating the paths.
+    -->
+
+    <svg xmlns="http://www.w3.org/2000/svg"
+         viewBox="0 0 320 320"
+         preserveAspectRatio="xMidYMid meet"
+         role="img"
+         aria-label="Circular weighted Voronoi land cover chart">
+
+      <title>Land cover shares in a circular Voronoi diagram</title>
+
+      <!-- Trees -->
+      <path class="cell"
+            fill="#358221"
+            d="M149.046,237.864
+               L46.942,250.788
+               L46.522,250.265
+               A145,145 0 0,1 122.471,19.941
+               L122.780,19.859 Z">
+        <title>Trees: 34.19%</title>
+      </path>
+
+      <!-- Rangeland -->
+      <path class="cell"
+            fill="#eecfa8"
+            d="M303.383,181.588
+               L298.955,195.086
+               L298.152,196.690
+               L287.596,212.156
+               L275.847,224.317
+               L237.937,249.230
+               L150.674,239.200
+               L149.046,237.864
+               L122.780,19.859
+               L123.695,19.619
+               A145,145 0 0,1 303.407,181.432 Z">
+        <title>Rangeland: 49.58%</title>
+      </path>
+
+      <!-- Crops -->
+      <path class="cell"
+            fill="#ffdb5c"
+            d="M150.674,239.200
+               L237.937,249.230
+               L246.236,276.569
+               L245.229,277.307
+               A145,145 0 0,1 153.675,304.862
+               L152.758,304.818 Z">
+        <title>Crops: 7.27%</title>
+      </path>
+
+      <!-- Water -->
+      <path class="cell"
+            fill="#1a5bab"
+            d="M149.046,237.864
+               L150.674,239.200
+               L152.758,304.818
+               L152.411,304.801
+               A145,145 0 0,1 47.314,251.251
+               L46.942,250.788 Z">
+        <title>Water: 6.83%</title>
+      </path>
+
+      <!-- Built Area -->
+      <path class="cell"
+            fill="#ed022a"
+            d="M237.937,249.230
+               L275.847,224.317
+               L285.005,233.475
+               L284.936,233.593
+               A145,145 0 0,1 246.249,276.559
+               L246.236,276.569 Z">
+        <title>Built Area: 1.68%</title>
+      </path>
+
+      <!-- Flooded Vegetation -->
+      <path class="cell"
+            fill="#87d19e"
+            d="M275.847,224.317
+               L287.596,212.156
+               L294.515,214.133
+               L294.442,214.318
+               A145,145 0 0,1 285.574,232.500
+               L285.005,233.475 Z">
+        <title>Flooded Vegetation: 0.29%</title>
+      </path>
+
+      <!-- Bare Ground -->
+      <path class="cell"
+            fill="#ede9e4"
+            d="M287.596,212.156
+               L298.152,196.690
+               L300.230,196.879
+               L300.059,197.529
+               A145,145 0 0,1 294.911,213.143
+               L294.515,214.133 Z">
+        <title>Bare Ground: 0.13%</title>
+      </path>
+
+      <!-- Snow/Ice -->
+      <path class="cell"
+            fill="#f2faff"
+            d="M298.152,196.690
+               L298.955,195.086
+               L300.691,195.086
+               L300.381,196.305
+               L300.230,196.879 Z">
+        <title>Snow/Ice: less than 0.01%</title>
+      </path>
+
+      <!-- Clouds -->
+      <path class="cell"
+            fill="#c8c8c8"
+            d="M298.955,195.086
+               L303.383,181.588
+               L303.215,182.683
+               A145,145 0 0,1 300.693,195.079
+               L300.691,195.086 Z">
+        <title>Clouds: 0.02%</title>
+      </path>
+
+      <!-- Labels inside the larger cells -->
+      <text x="83" y="142"
+            class="chart-label"
+            fill="#ffffff">Trees</text>
+
+      <text x="83" y="163"
+            class="chart-value"
+            fill="#ffffff">34.19%</text>
+
+      <text x="211" y="127"
+            class="chart-label"
+            fill="#243e34">Rangeland</text>
+
+      <text x="211" y="148"
+            class="chart-value"
+            fill="#243e34">49.58%</text>
+
+      <text x="192" y="267"
+            class="small-label"
+            fill="#243e34">Crops</text>
+
+      <text x="192" y="283"
+            class="small-value"
+            fill="#243e34">7.27%</text>
+
+      <text x="112" y="264"
+            class="small-label"
+            fill="#ffffff">Water</text>
+
+      <text x="112" y="280"
+            class="small-value"
+            fill="#ffffff">6.83%</text>
+
+    </svg>
+  </div>
+
+  <p class="caption">
+    Cell area represents each class’s share.
+  </p>
+
+  <table class="key" aria-label="Land cover percentages">
+    <tbody>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#358221;"></span>
+        </td>
+        <td class="name">Trees</td>
+        <td class="percentage">34.19%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#eecfa8;"></span>
+        </td>
+        <td class="name">Rangeland</td>
+        <td class="percentage">49.58%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#ffdb5c;"></span>
+        </td>
+        <td class="name">Crops</td>
+        <td class="percentage">7.27%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#1a5bab;"></span>
+        </td>
+        <td class="name">Water</td>
+        <td class="percentage">6.83%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#ed022a;"></span>
+        </td>
+        <td class="name">Built Area</td>
+        <td class="percentage">1.68%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#87d19e;"></span>
+        </td>
+        <td class="name">Flooded Vegetation</td>
+        <td class="percentage">0.29%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#ede9e4;"></span>
+        </td>
+        <td class="name">Bare Ground</td>
+        <td class="percentage">0.13%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#f2faff;"></span>
+        </td>
+        <td class="name">Snow/Ice</td>
+        <td class="percentage">&lt;0.01%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#c8c8c8;"></span>
+        </td>
+        <td class="name">Clouds</td>
+        <td class="percentage">0.02%</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <p class="note">
+    Areas are approximate. Very small classes remain listed
+    in the key because their cells may be difficult to see.
+  </p>
+
+</div>
+</body>
+</html>
