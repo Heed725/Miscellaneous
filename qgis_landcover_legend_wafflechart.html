@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Waffle Grid Legend for QGIS</title>
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+  }
+
+  body {
+    font-family: 'Barlow', 'Segoe UI', Arial, sans-serif;
+    font-weight: 400;
+    color: #243e34;
+  }
+
+  .legend {
+    width: 100%;
+    max-width: 380px;
+  }
+
+  .heading {
+    margin: 0 0 6px;
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 600;
+  }
+
+  .subtitle {
+    margin: 0 0 18px;
+    color: #65776f;
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  /* 100 squares: 10 rows × 10 columns. */
+  .waffle {
+    width: 260px;
+    height: 260px;
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 3px;
+    table-layout: fixed;
+  }
+
+  .waffle td {
+    padding: 0;
+    border: none;
+  }
+
+  .trees      { background: #358221; }
+  .rangeland  { background: #eecfa8; }
+  .crops      { background: #ffdb5c; }
+  .water      { background: #1a5bab; }
+  .built      { background: #ed022a; }
+  .flooded    { background: #87d19e; }
+  .bare       { background: #ede9e4; }
+  .snow       { background: #f2faff; }
+  .clouds     { background: #c8c8c8; }
+
+  .grid-caption {
+    margin: 8px 0 20px;
+    text-align: center;
+    color: #65776f;
+    font-size: 12px;
+    line-height: 17px;
+  }
+
+  .key {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  .key td {
+    padding: 7px 0;
+    vertical-align: middle;
+    border-bottom: 1px solid #e1e4d8;
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  .key tr:last-child td {
+    border-bottom: none;
+  }
+
+  .symbol-cell {
+    width: 25px;
+  }
+
+  .swatch {
+    display: block;
+    width: 13px;
+    height: 13px;
+  }
+
+  .name {
+    white-space: nowrap;
+  }
+
+  .percentage {
+    width: 75px;
+    text-align: right;
+    color: #65776f;
+    white-space: nowrap;
+  }
+
+  .note {
+    margin: 14px 0 0;
+    color: #65776f;
+    font-size: 11px;
+    line-height: 16px;
+  }
+</style>
+</head>
+
+<body>
+<div class="legend">
+
+  <h2 class="heading">Legend</h2>
+  <p class="subtitle">Land cover · share of classified area</p>
+
+  <!--
+    Static grid, rounded to 100 whole squares:
+    Trees 34, Rangeland 50, Crops 7, Water 7, Built Area 2.
+    Smaller classes receive no square but remain in the key.
+
+    If you change the percentages, update the grid cells too.
+  -->
+
+  <table class="waffle"
+         role="img"
+         aria-label="Land cover waffle chart: Trees 34 squares,
+                     Rangeland 50, Crops 7, Water 7,
+                     and Built Area 2.">
+
+    <tbody>
+      <!-- Row 1: Trees -->
+      <tr>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+      </tr>
+
+      <!-- Row 2: Trees -->
+      <tr>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+      </tr>
+
+      <!-- Row 3: Trees -->
+      <tr>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+      </tr>
+
+      <!-- Row 4: 4 Trees + 6 Rangeland -->
+      <tr>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="trees"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+      </tr>
+
+      <!-- Row 5: Rangeland -->
+      <tr>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+      </tr>
+
+      <!-- Row 6: Rangeland -->
+      <tr>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+      </tr>
+
+      <!-- Row 7: Rangeland -->
+      <tr>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+      </tr>
+
+      <!-- Row 8: Rangeland -->
+      <tr>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+      </tr>
+
+      <!-- Row 9: 4 Rangeland + 6 Crops -->
+      <tr>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="rangeland"></td>
+        <td class="crops"></td>
+        <td class="crops"></td>
+        <td class="crops"></td>
+        <td class="crops"></td>
+        <td class="crops"></td>
+        <td class="crops"></td>
+      </tr>
+
+      <!-- Row 10: 1 Crops + 7 Water + 2 Built Area -->
+      <tr>
+        <td class="crops"></td>
+        <td class="water"></td>
+        <td class="water"></td>
+        <td class="water"></td>
+        <td class="water"></td>
+        <td class="water"></td>
+        <td class="water"></td>
+        <td class="water"></td>
+        <td class="built"></td>
+        <td class="built"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="grid-caption">1 square ≈ 1% of classified area</p>
+
+  <table class="key" aria-label="Land cover percentages">
+    <tbody>
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch trees"></span>
+        </td>
+        <td class="name">Trees</td>
+        <td class="percentage">34.19%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch rangeland"></span>
+        </td>
+        <td class="name">Rangeland</td>
+        <td class="percentage">49.58%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch crops"></span>
+        </td>
+        <td class="name">Crops</td>
+        <td class="percentage">7.27%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch water"></span>
+        </td>
+        <td class="name">Water</td>
+        <td class="percentage">6.83%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch built"></span>
+        </td>
+        <td class="name">Built Area</td>
+        <td class="percentage">1.68%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch flooded"></span>
+        </td>
+        <td class="name">Flooded Vegetation</td>
+        <td class="percentage">0.29%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch bare"></span>
+        </td>
+        <td class="name">Bare Ground</td>
+        <td class="percentage">0.13%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch snow"></span>
+        </td>
+        <td class="name">Snow/Ice</td>
+        <td class="percentage">&lt;0.01%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch clouds"></span>
+        </td>
+        <td class="name">Clouds</td>
+        <td class="percentage">0.02%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="note">
+    Squares show rounded shares; percentages retain the reference values.
+    Classes below 0.5% do not receive a square.
+  </p>
+
+</div>
+</body>
+</html>
