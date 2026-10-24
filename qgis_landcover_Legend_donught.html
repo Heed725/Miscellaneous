@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Land Cover Graph Legend</title>
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+  }
+
+  body {
+    font-family: 'Barlow', 'Segoe UI', Arial, sans-serif;
+    color: #243e34;
+  }
+
+  .legend {
+    width: 100%;
+    max-width: 380px;
+  }
+
+  .heading {
+    margin: 0 0 12px;
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  .chart {
+    width: 210px;
+    height: 210px;
+    margin: 0 auto 18px;
+  }
+
+  .chart svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .chart-label {
+    font-family: 'Barlow', 'Segoe UI', Arial, sans-serif;
+    fill: #243e34;
+    text-anchor: middle;
+    font-size: 2.7px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .chart-subtitle {
+    font-family: 'Barlow', 'Segoe UI', Arial, sans-serif;
+    fill: #65776f;
+    text-anchor: middle;
+    font-size: 2px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  td {
+    padding: 8px 0;
+    vertical-align: middle;
+    border-bottom: 1px solid #e1e4d8;
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  .symbol-cell {
+    width: 25px;
+  }
+
+  .swatch {
+    display: block;
+    width: 12px;
+    height: 12px;
+  }
+
+  .name {
+    white-space: nowrap;
+  }
+
+  .percentage {
+    width: 75px;
+    color: #65776f;
+    text-align: right;
+    white-space: nowrap;
+    font-size: 14px;
+  }
+
+  .note {
+    margin: 14px 0 0;
+    font-size: 11px;
+    line-height: 16px;
+    color: #65776f;
+  }
+</style>
+</head>
+
+<body>
+<div class="legend">
+
+  <h2 class="heading">Legend</h2>
+
+  <div class="chart">
+    <svg xmlns="http://www.w3.org/2000/svg"
+         viewBox="0 0 42 42"
+         role="img"
+         aria-label="Doughnut chart of land cover shares">
+
+      <!-- Radius gives a circumference of approximately 100.
+           Segment lengths therefore correspond to percentages.
+           Values are static and do not read a QGIS layer. -->
+
+      <circle cx="21" cy="21" r="15.915494"
+              fill="none"
+              stroke="#e1e4d8"
+              stroke-width="5.5"/>
+
+      <g transform="rotate(-90 21 21)"
+         fill="none"
+         stroke-width="5.5"
+         stroke-linecap="butt">
+
+        <!-- Trees -->
+        <circle cx="21" cy="21" r="15.915494"
+                stroke="#358221"
+                stroke-dasharray="34.19 65.81"
+                stroke-dashoffset="0"/>
+
+        <!-- Rangeland -->
+        <circle cx="21" cy="21" r="15.915494"
+                stroke="#eecfa8"
+                stroke-dasharray="49.58 50.42"
+                stroke-dashoffset="-34.19"/>
+
+        <!-- Crops -->
+        <circle cx="21" cy="21" r="15.915494"
+                stroke="#ffdb5c"
+                stroke-dasharray="7.27 92.73"
+                stroke-dashoffset="-83.77"/>
+
+        <!-- Water -->
+        <circle cx="21" cy="21" r="15.915494"
+                stroke="#1a5bab"
+                stroke-dasharray="6.83 93.17"
+                stroke-dashoffset="-91.04"/>
+
+        <!-- Built Area -->
+        <circle cx="21" cy="21" r="15.915494"
+                stroke="#ed022a"
+                stroke-dasharray="1.68 98.32"
+                stroke-dashoffset="-97.87"/>
+
+        <!-- Flooded Vegetation -->
+        <circle cx="21" cy="21" r="15.915494"
+                stroke="#87d19e"
+                stroke-dasharray="0.29 99.71"
+                stroke-dashoffset="-99.55"/>
+
+        <!-- Bare Ground -->
+        <circle cx="21" cy="21" r="15.915494"
+                stroke="#ede9e4"
+                stroke-dasharray="0.13 99.87"
+                stroke-dashoffset="-99.84"/>
+
+        <!-- Snow/Ice: illustrative 0.005% for the <0.01% value -->
+        <circle cx="21" cy="21" r="15.915494"
+                stroke="#f2faff"
+                stroke-dasharray="0.005 99.995"
+                stroke-dashoffset="-99.97"/>
+
+        <!-- Clouds -->
+        <circle cx="21" cy="21" r="15.915494"
+                stroke="#c8c8c8"
+                stroke-dasharray="0.02 99.98"
+                stroke-dashoffset="-99.975"/>
+      </g>
+
+      <text x="21" y="20.5" class="chart-label">
+        LAND COVER
+      </text>
+
+      <text x="21" y="24" class="chart-subtitle">
+        Share of area
+      </text>
+    </svg>
+  </div>
+
+  <table aria-label="Land cover classes and percentages">
+    <tbody>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#358221;"></span>
+        </td>
+        <td class="name">Trees</td>
+        <td class="percentage">34.19%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#eecfa8;"></span>
+        </td>
+        <td class="name">Rangeland</td>
+        <td class="percentage">49.58%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#ffdb5c;"></span>
+        </td>
+        <td class="name">Crops</td>
+        <td class="percentage">7.27%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#1a5bab;"></span>
+        </td>
+        <td class="name">Water</td>
+        <td class="percentage">6.83%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#ed022a;"></span>
+        </td>
+        <td class="name">Built Area</td>
+        <td class="percentage">1.68%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#87d19e;"></span>
+        </td>
+        <td class="name">Flooded Vegetation</td>
+        <td class="percentage">0.29%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#ede9e4;"></span>
+        </td>
+        <td class="name">Bare Ground</td>
+        <td class="percentage">0.13%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#f2faff;"></span>
+        </td>
+        <td class="name">Snow/Ice</td>
+        <td class="percentage">&lt;0.01%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#c8c8c8;"></span>
+        </td>
+        <td class="name">Clouds</td>
+        <td class="percentage">0.02%</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <p class="note">
+    Approximate share of classified area.
+    Very small classes may be difficult to see in the chart.
+  </p>
+
+</div>
+</body>
+</html>
