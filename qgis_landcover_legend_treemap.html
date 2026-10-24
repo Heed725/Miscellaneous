@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Treemap Legend for QGIS</title>
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+  }
+
+  body {
+    font-family: 'Barlow', 'Segoe UI', Arial, sans-serif;
+    color: #243e34;
+    font-weight: 400;
+  }
+
+  .legend {
+    width: 100%;
+    max-width: 380px;
+  }
+
+  .heading {
+    margin: 0 0 6px;
+    font-size: 22px;
+    line-height: 28px;
+    font-weight: 600;
+  }
+
+  .subtitle {
+    margin: 0 0 18px;
+    color: #65776f;
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .treemap {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .treemap text {
+    font-family: 'Barlow', 'Segoe UI', Arial, sans-serif;
+    text-anchor: middle;
+  }
+
+  .chart-caption {
+    margin: 9px 0 20px;
+    color: #65776f;
+    font-size: 12px;
+    line-height: 17px;
+  }
+
+  .key {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  .key td {
+    padding: 7px 0;
+    vertical-align: middle;
+    border-bottom: 1px solid #e1e4d8;
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  .key tr:last-child td {
+    border-bottom: none;
+  }
+
+  .symbol-cell {
+    width: 25px;
+  }
+
+  .swatch {
+    display: block;
+    width: 13px;
+    height: 13px;
+  }
+
+  .name {
+    white-space: nowrap;
+  }
+
+  .percentage {
+    width: 75px;
+    text-align: right;
+    color: #65776f;
+    white-space: nowrap;
+  }
+
+  .note {
+    margin: 14px 0 0;
+    color: #65776f;
+    font-size: 11px;
+    line-height: 16px;
+  }
+</style>
+</head>
+
+<body>
+<div class="legend">
+
+  <h2 class="heading">Legend</h2>
+
+  <p class="subtitle">
+    Land cover · share of classified area
+  </p>
+
+  <!--
+    Static treemap: rectangle areas follow the reference percentages.
+    Values are normalized to fill the chart.
+
+    Snow/Ice uses 0.005% as a plotting placeholder for <0.01%.
+    These values do not calculate statistics from a QGIS layer.
+  -->
+
+  <svg class="treemap"
+       xmlns="http://www.w3.org/2000/svg"
+       viewBox="0 0 360 240"
+       preserveAspectRatio="xMidYMid meet"
+       role="img"
+       aria-label="Treemap showing land cover shares">
+
+    <title>Land cover shares</title>
+
+    <!-- Rangeland -->
+    <rect x="0" y="0"
+          width="178.4969" height="240"
+          fill="#eecfa8">
+      <title>Rangeland: 49.58%</title>
+    </rect>
+
+    <!-- Trees -->
+    <rect x="178.4969" y="0"
+          width="181.5031" height="162.7611"
+          fill="#358221">
+      <title>Trees: 34.19%</title>
+    </rect>
+
+    <!-- Crops -->
+    <rect x="178.4969" y="162.7611"
+          width="81.3268" height="77.2389"
+          fill="#ffdb5c">
+      <title>Crops: 7.27%</title>
+    </rect>
+
+    <!-- Water -->
+    <rect x="259.8237" y="162.7611"
+          width="100.1763" height="58.9103"
+          fill="#1a5bab">
+      <title>Water: 6.83%</title>
+    </rect>
+
+    <!-- Built Area -->
+    <rect x="259.8237" y="221.6714"
+          width="79.1982" height="18.3286"
+          fill="#ed022a">
+      <title>Built Area: 1.68%</title>
+    </rect>
+
+    <!-- Flooded Vegetation -->
+    <rect x="339.0219" y="221.6714"
+          width="13.6711" height="18.3286"
+          fill="#87d19e">
+      <title>Flooded Vegetation: 0.29%</title>
+    </rect>
+
+    <!-- Bare Ground -->
+    <rect x="352.6930" y="221.6714"
+          width="6.1284" height="18.3286"
+          fill="#ede9e4">
+      <title>Bare Ground: 0.13%</title>
+    </rect>
+
+    <!-- Snow/Ice -->
+    <rect x="358.8215" y="221.6714"
+          width="0.2357" height="18.3286"
+          fill="#f2faff">
+      <title>Snow/Ice: less than 0.01%</title>
+    </rect>
+
+    <!-- Clouds -->
+    <rect x="359.0572" y="221.6714"
+          width="0.9428" height="18.3286"
+          fill="#c8c8c8">
+      <title>Clouds: 0.02%</title>
+    </rect>
+
+    <!-- Labels for larger rectangles -->
+    <text x="89.2485" y="113"
+          fill="#243e34"
+          font-size="18"
+          font-weight="600">
+      Rangeland
+    </text>
+
+    <text x="89.2485" y="138"
+          fill="#243e34"
+          font-size="16">
+      49.58%
+    </text>
+
+    <text x="269.2485" y="75"
+          fill="#ffffff"
+          font-size="18"
+          font-weight="600">
+      Trees
+    </text>
+
+    <text x="269.2485" y="100"
+          fill="#ffffff"
+          font-size="16">
+      34.19%
+    </text>
+
+    <text x="219.1603" y="197"
+          fill="#243e34"
+          font-size="13"
+          font-weight="600">
+      Crops
+    </text>
+
+    <text x="219.1603" y="216"
+          fill="#243e34"
+          font-size="12">
+      7.27%
+    </text>
+
+    <text x="309.9119" y="187"
+          fill="#ffffff"
+          font-size="13"
+          font-weight="600">
+      Water
+    </text>
+
+    <text x="309.9119" y="205"
+          fill="#ffffff"
+          font-size="12">
+      6.83%
+    </text>
+
+  </svg>
+
+  <p class="chart-caption">
+    Rectangle area represents each class’s share.
+  </p>
+
+  <table class="key" aria-label="Land cover percentages">
+    <tbody>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#358221;"></span>
+        </td>
+        <td class="name">Trees</td>
+        <td class="percentage">34.19%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#eecfa8;"></span>
+        </td>
+        <td class="name">Rangeland</td>
+        <td class="percentage">49.58%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#ffdb5c;"></span>
+        </td>
+        <td class="name">Crops</td>
+        <td class="percentage">7.27%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#1a5bab;"></span>
+        </td>
+        <td class="name">Water</td>
+        <td class="percentage">6.83%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#ed022a;"></span>
+        </td>
+        <td class="name">Built Area</td>
+        <td class="percentage">1.68%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#87d19e;"></span>
+        </td>
+        <td class="name">Flooded Vegetation</td>
+        <td class="percentage">0.29%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#ede9e4;"></span>
+        </td>
+        <td class="name">Bare Ground</td>
+        <td class="percentage">0.13%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#f2faff;"></span>
+        </td>
+        <td class="name">Snow/Ice</td>
+        <td class="percentage">&lt;0.01%</td>
+      </tr>
+
+      <tr>
+        <td class="symbol-cell">
+          <span class="swatch" style="background:#c8c8c8;"></span>
+        </td>
+        <td class="name">Clouds</td>
+        <td class="percentage">0.02%</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <p class="note">
+    Areas are approximate. Very small classes may be difficult
+    to distinguish in the treemap.
+  </p>
+
+</div>
+</body>
+</html>
