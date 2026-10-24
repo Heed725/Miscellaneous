@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Land cover legend for QGIS</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: transparent !important;
+  }
+
+  body {
+    font-family: 'Barlow', 'Segoe UI', Arial, sans-serif;
+    font-weight: 400;
+    color: #243e34;
+  }
+
+  .legend {
+    width: 100%;
+  }
+
+  .heading {
+    margin: 0 0 24px;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 26px;
+  }
+
+  .row {
+    position: relative;
+    height: 55.3px;
+    page-break-inside: avoid;
+  }
+
+  .swatch {
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 14px;
+    height: 14px;
+  }
+
+  .label {
+    position: absolute;
+    left: 24px;
+    top: 0;
+    font-size: 16px;
+    line-height: 22px;
+    white-space: nowrap;
+  }
+
+  .value {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 90px;
+    font-size: 14px;
+    line-height: 22px;
+    color: #65776f;
+    white-space: nowrap;
+  }
+
+  .track {
+    position: absolute;
+    left: 24px;
+    right: 0;
+    top: 32px;
+    height: 3px;
+    background: #e1e4d8;
+  }
+
+  .fill {
+    height: 3px;
+  }
+</style>
+</head>
+
+<body>
+<div class="legend">
+
+  <h2 class="heading">Legend</h2>
+
+  <div class="row">
+    <span class="swatch" style="background:#358221;"></span>
+    <span class="label">Trees</span>
+    <span class="value">34.19%</span>
+    <div class="track">
+      <div class="fill" style="width:34.19%;background:#358221;"></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="swatch" style="background:#eecfa8;"></span>
+    <span class="label">Rangeland</span>
+    <span class="value">49.58%</span>
+    <div class="track">
+      <div class="fill" style="width:49.58%;background:#eecfa8;"></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="swatch" style="background:#ffdb5c;"></span>
+    <span class="label">Crops</span>
+    <span class="value">7.27%</span>
+    <div class="track">
+      <div class="fill" style="width:7.27%;background:#ffdb5c;"></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="swatch" style="background:#1a5bab;"></span>
+    <span class="label">Water</span>
+    <span class="value">6.83%</span>
+    <div class="track">
+      <div class="fill" style="width:6.83%;background:#1a5bab;"></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="swatch" style="background:#ed022a;"></span>
+    <span class="label">Built Area</span>
+    <span class="value">1.68%</span>
+    <div class="track">
+      <div class="fill" style="width:1.68%;background:#ed022a;"></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="swatch" style="background:#87d19e;"></span>
+    <span class="label">Flooded Vegetation</span>
+    <span class="value">0.29%</span>
+    <div class="track">
+      <div class="fill" style="width:0.29%;background:#87d19e;"></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="swatch" style="background:#ede9e4;"></span>
+    <span class="label">Bare Ground</span>
+    <span class="value">0.13%</span>
+    <div class="track">
+      <div class="fill" style="width:0.13%;background:#ede9e4;"></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="swatch" style="background:#f2faff;"></span>
+    <span class="label">Snow/Ice</span>
+    <span class="value">&lt;0.01%</span>
+    <!-- Visual placeholder for a share below 0.01%. -->
+    <div class="track">
+      <div class="fill" style="width:0.005%;background:#f2faff;"></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <span class="swatch" style="background:#c8c8c8;"></span>
+    <span class="label">Clouds</span>
+    <span class="value">0.02%</span>
+    <div class="track">
+      <div class="fill" style="width:0.02%;background:#c8c8c8;"></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
