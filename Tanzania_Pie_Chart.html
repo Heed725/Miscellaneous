@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tanzania Land Cover Pie Chart for QGIS</title>
+<style>
+/* QGIS Layout > Add HTML: load this file or paste the full code into Source.
+   Suggested frame: 101 x 220 mm. Disable Background, Frame and smart breaks.
+   Self-contained static SVG, no Internet or JavaScript required.
+   Barlow is used if installed. Values are supplied by the user.
+   Snow/Ice is <0.01%; 0.005% is used only to draw its slice.
+   Plotting values total 99.995% and are normalized to 100% for the pie.
+   Displayed values preserve the user's original percentages.
+   When changing values, recalculate the SVG slice geometry as well. */
+html,body {margin:0;padding:0;background:transparent !important;}
+body {font-family:'Barlow','Segoe UI',Arial,sans-serif;font-weight:400;color:#243e34;}
+.legend {width:100%;max-width:380px;}
+h2 {margin:0 0 6px;font-size:22px;line-height:28px;font-weight:600;}
+.subtitle {margin:0 0 12px;font-size:13px;line-height:18px;color:#65776f;}
+.diagram {width:100%;max-width:320px;margin:0 auto;}
+.diagram svg {display:block;width:100%;height:auto;}
+.caption {margin:5px 0 18px;text-align:center;font-size:12px;line-height:17px;color:#65776f;}
+table {width:100%;border-collapse:collapse;table-layout:fixed;}
+td {padding:7px 0;vertical-align:middle;border-bottom:1px solid #e1e4d8;font-size:15px;line-height:20px;}
+tr:last-child td {border-bottom:none;}
+.symbol {width:25px;}
+.symbol span {display:block;width:13px;height:13px;border:1px solid rgba(36,62,52,.16);box-sizing:border-box;}
+.value {width:75px;text-align:right;color:#65776f;white-space:nowrap;}
+.note {margin:14px 0 0;font-size:11px;line-height:16px;color:#65776f;}
+</style></head>
+<body><div class="legend">
+<h2>Legend</h2>
+<p class="subtitle">Tanzania · land cover share of classified area</p>
+<div class="diagram"><svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320" role="img" aria-labelledby="pie-title pie-description">
+<title id="pie-title">Tanzania land cover pie chart</title>
+<desc id="pie-description">Slice area represents each land cover class’s share. Full values appear in the key. Snow and ice are less than 0.01 percent.</desc>
+<path fill="#358221" d="M160,160 L160.00000,15.00000 A145,145 0 0,1 281.48282,239.16391 Z"><title>Trees: 34.19%</title></path>
+<path fill="#eecfa8" d="M160,160 L281.48282,239.16391 A145,145 0 0,1 36.48246,84.04990 Z"><title>Rangeland: 49.58%</title></path>
+<path fill="#ffdb5c" d="M160,160 L36.48246,84.04990 A145,145 0 0,1 82.64813,37.35544 Z"><title>Crops: 7.27%</title></path>
+<path fill="#1a5bab" d="M160,160 L82.64813,37.35544 A145,145 0 0,1 140.69645,16.29067 Z"><title>Water: 6.83%</title></path>
+<path fill="#ed022a" d="M160,160 L140.69645,16.29067 A145,145 0 0,1 155.94610,15.05668 Z"><title>Built Area: 1.68%</title></path>
+<path fill="#87d19e" d="M160,160 L155.94610,15.05668 A145,145 0 0,1 158.58781,15.00688 Z"><title>Flooded Vegetation: 0.29%</title></path>
+<path fill="#ede9e4" d="M160,160 L158.58781,15.00688 A145,145 0 0,1 159.77222,15.00018 Z"><title>Bare Ground: 0.13%</title></path>
+<path fill="#f2faff" d="M160,160 L159.77222,15.00018 A145,145 0 0,1 159.81778,15.00011 Z"><title>Snow/Ice: &lt;0.01%</title></path>
+<path fill="#c8c8c8" d="M160,160 L159.81778,15.00011 A145,145 0 0,1 160.00000,15.00000 Z"><title>Clouds: 0.02%</title></path>
+<circle cx="160" cy="160" r="145" fill="none" stroke="#243e34" stroke-opacity="0.3" stroke-width="0.6"/>
+<g fill="#ffffff" font-family="Barlow, Segoe UI, Arial, sans-serif" text-anchor="middle"><text x="240.01" y="113.64" font-size="15" font-weight="600">Trees</text><text x="240.01" y="131.64" font-size="14">34.19%</text></g>
+<g fill="#243e34" font-family="Barlow, Segoe UI, Arial, sans-serif" text-anchor="middle"><text x="111.32" y="233.89" font-size="15" font-weight="600">Rangeland</text><text x="111.32" y="251.89" font-size="14">49.58%</text></g>
+<g fill="#243e34" font-family="Barlow, Segoe UI, Arial, sans-serif" text-anchor="middle"><text x="80.35" y="78.26" font-size="11" font-weight="600">Crops</text><text x="80.35" y="92.26" font-size="10">7.27%</text></g>
+<g fill="#ffffff" font-family="Barlow, Segoe UI, Arial, sans-serif" text-anchor="middle"><text x="121.79" y="51.72" font-size="11" font-weight="600">Water</text><text x="121.79" y="65.72" font-size="10">6.83%</text></g>
+</svg></div>
+<p class="caption">Slice area represents each class’s share.</p>
+<table aria-label="Land cover percentages"><tbody><tr><td class="symbol"><span style="background:#358221"></span></td><td>Trees</td><td class="value">34.19%</td></tr>
+<tr><td class="symbol"><span style="background:#eecfa8"></span></td><td>Rangeland</td><td class="value">49.58%</td></tr>
+<tr><td class="symbol"><span style="background:#ffdb5c"></span></td><td>Crops</td><td class="value">7.27%</td></tr>
+<tr><td class="symbol"><span style="background:#1a5bab"></span></td><td>Water</td><td class="value">6.83%</td></tr>
+<tr><td class="symbol"><span style="background:#ed022a"></span></td><td>Built Area</td><td class="value">1.68%</td></tr>
+<tr><td class="symbol"><span style="background:#87d19e"></span></td><td>Flooded Vegetation</td><td class="value">0.29%</td></tr>
+<tr><td class="symbol"><span style="background:#ede9e4"></span></td><td>Bare Ground</td><td class="value">0.13%</td></tr>
+<tr><td class="symbol"><span style="background:#f2faff"></span></td><td>Snow/Ice</td><td class="value">&lt;0.01%</td></tr>
+<tr><td class="symbol"><span style="background:#c8c8c8"></span></td><td>Clouds</td><td class="value">0.02%</td></tr></tbody></table>
+<p class="note">Static reference values. Very small slices may be difficult to see; all classes remain listed in the key. Snow/Ice uses a 0.005% plotting placeholder for &lt;0.01%.</p>
+</div></body></html>
