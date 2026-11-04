@@ -1,1 +1,9 @@
-#D5B641, #3C6731
+#D5B641, #3C6731 ,#E5AD1D ,#29531F ,#FF7F00, #FF5F02 ,#FFFFFF ,#000000
+#D5B641 - Yellow-Variation 1
+#3C6731 - Green-Variation 1
+#E5AD1D - Yellow-Variation 2
+#29531F - Green-Variation 2
+#FF7F00 - Pale Orange
+#FF5F02 - Deep Orange
+#FFFFFF - White
+#000000 - Black
